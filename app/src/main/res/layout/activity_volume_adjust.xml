@@ -87,8 +87,10 @@
         android:layout_height="wrap_content"
         app:thumbColor="@color/black"
         app:trackColor="@color/black"
+        android:contentDescription="@string/slider"
         android:valueFrom="0"
         android:valueTo="100"
+        android:value="100"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:labelBehavior="floating" />
 

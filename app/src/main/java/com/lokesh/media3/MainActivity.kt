@@ -322,6 +322,12 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
         if(Util.SDK_INT>=24){
             releasePlayer()
         }
+        filePath?.let {
+            if (it.exists()) {
+                it.delete()
+                Log.d("MergeVidsActivity", "Temporary file deleted: ${it.absolutePath}")
+            }
+        }
     }
 
     override fun onPause() {
@@ -332,6 +338,7 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
     override fun onDestroy() {
         super.onDestroy()
         releasePlayer()
+
     }
 
     private fun setUpTransformer(){
@@ -347,7 +354,6 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
 
     private fun transformVideo() {
         progressBar.visibility = View.VISIBLE
-        val effect = listOf<Effects>()
 
         transformer = Transformer
             .Builder(this)
@@ -366,7 +372,6 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
             .build()
 
         val editedMediaItem = EditedMediaItem.Builder(inputMediaItem).apply {
-            setRemoveAudio(true)
             setEffects(Effects(mutableListOf(), mutableListOf()))
         }
 

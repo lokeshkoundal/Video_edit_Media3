@@ -34,5 +34,10 @@ class NavigateActivity : AppCompatActivity() {
 
         }
 
+        binding.mergeMusicBtn.setOnClickListener {
+            val intent = Intent(this, AddMusicActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

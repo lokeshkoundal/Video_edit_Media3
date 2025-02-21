@@ -10,6 +10,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.audio.AudioProcessor
 import androidx.media3.common.audio.ChannelMixingAudioProcessor
 import androidx.media3.common.audio.ChannelMixingMatrix
+import androidx.media3.common.util.Log
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
 import androidx.media3.exoplayer.ExoPlayer
@@ -29,7 +30,6 @@ class VolumeAdjustActivity : AppCompatActivity(),Transformer.Listener {
 
     private lateinit var binding : ActivityVolumeAdjustBinding
 
-
     private var inputPlayer : ExoPlayer? = null
     private var outputPlayer : ExoPlayer? = null
 
@@ -40,7 +40,6 @@ class VolumeAdjustActivity : AppCompatActivity(),Transformer.Listener {
     private var filePath : File? = null
 
     private var transformer : Transformer? = null
-
     private var videoUrl : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +54,7 @@ class VolumeAdjustActivity : AppCompatActivity(),Transformer.Listener {
         }
 
         binding.button.setOnClickListener {
-                    launchNewVideoPicker()
+            launchNewVideoPicker()
         }
     }
 
@@ -88,8 +87,6 @@ class VolumeAdjustActivity : AppCompatActivity(),Transformer.Listener {
         inputPlayer?.playWhenReady = playWhenReady
         inputPlayer?.prepare()
 
-
-
     }
 
     private fun initOutputPlayer(){
@@ -119,6 +116,12 @@ class VolumeAdjustActivity : AppCompatActivity(),Transformer.Listener {
         if(Util.SDK_INT>=24){
             releasePlayer()
         }
+        filePath?.let {
+            if (it.exists()) {
+                it.delete()
+                Log.d("MergeVidsActivity", "Temporary file deleted: ${it.absolutePath}")
+            }
+        }
     }
 
     override fun onPause() {
@@ -129,6 +132,7 @@ class VolumeAdjustActivity : AppCompatActivity(),Transformer.Listener {
     override fun onDestroy() {
         super.onDestroy()
         releasePlayer()
+
     }
 
     private fun setUpTransformer(){
@@ -137,50 +141,73 @@ class VolumeAdjustActivity : AppCompatActivity(),Transformer.Listener {
         outputPlayer = null
         binding.outputPlayerView.player = null
 
-        kotlin.run {
-            adjustVolume()
-        }
+        adjustVolume()
+
     }
 
+    /**
+     * Adjusts the volume of a video file based on the value of a SeekBar.
+     * If the volume is set to 0, it removes the audio from the video.
+     * Otherwise, it scales the audio volume by the specified factor.
+     */
     private fun adjustVolume() {
         binding.progressBar.visibility = View.VISIBLE
-        val volume = binding.seekBar.value  // Get volume level from SeekBar (0.0 to 1.0)
+        val volume = binding.seekBar.value/100  // Get volume level from SeekBar (0.0 to 1.0)
 
         // Create Audio Processor for Volume Adjustment
-        val processors = ImmutableList.Builder<AudioProcessor>()
-        val mixingAudioProcessor = ChannelMixingAudioProcessor()
 
-        var inputChannelCount = 1
-        while (inputChannelCount <= 6){
+        if(volume==0.0f){
+            transformer = Transformer
+                .Builder(this)
+                .addListener(this)
+                .build()
 
-            val matrix = ChannelMixingMatrix.create(inputChannelCount,inputChannelCount)
+            val inputMediaItem = MediaItem.Builder()
+                .setUri(videoUrl)
+                .build()
 
-            mixingAudioProcessor.putChannelMixingMatrix(matrix.scaleBy(volume/100))
-            inputChannelCount++
+            val editedMediaItem = EditedMediaItem.Builder(inputMediaItem).apply {
+                setRemoveAudio(true)  //remove audio
+            }
+
+            filePath = createExternalFile()
+            transformer!!.start(editedMediaItem.build(), filePath!!.absolutePath)
         }
-        // Apply the volume adjustment.
+        else{
+            val processors = ImmutableList.Builder<AudioProcessor>()
+            val mixingAudioProcessor = ChannelMixingAudioProcessor()
 
-        val audioProcessor :MutableList<AudioProcessor> =   processors.add(mixingAudioProcessor).build()
+            var inputChannelCount = 1
+            while (inputChannelCount <= 6){
+                val matrix = ChannelMixingMatrix.create(inputChannelCount,inputChannelCount)
+                mixingAudioProcessor.putChannelMixingMatrix(matrix.scaleBy(volume))
+                inputChannelCount++
+            }
 
-        // Create an Effects object with the volume processor
-        val effects = Effects(audioProcessor, listOf())
+            // Apply the volume adjustment.
+            val audioProcessor :MutableList<AudioProcessor> =   processors.add(mixingAudioProcessor).build()
 
-        transformer = Transformer
-            .Builder(this)
-            .addListener(this@VolumeAdjustActivity)
-            .build()
+            // Create an Effects object with the volume processor
+            val effects = Effects(audioProcessor, listOf())
 
-        val inputMediaItem = MediaItem.Builder()
-            .setUri(videoUrl)
-            .build()
+            transformer = Transformer
+                .Builder(this)
+                .addListener(this@VolumeAdjustActivity)
+                .build()
 
-        val editedMediaItem = EditedMediaItem.Builder(inputMediaItem).apply {
-            setRemoveAudio(false)  // Don't remove audio
-            setEffects(effects)    // Apply volume effects
+            val inputMediaItem = MediaItem.Builder()
+                .setUri(videoUrl)
+                .build()
+
+            val editedMediaItem = EditedMediaItem.Builder(inputMediaItem).apply {
+                setRemoveAudio(false)  // Don't remove audio
+                setEffects(effects)    // Apply volume effects
+            }
+
+            filePath = createExternalFile()
+            transformer!!.start(editedMediaItem.build(), filePath!!.absolutePath)
         }
 
-        filePath = createExternalFile()
-        transformer!!.start(editedMediaItem.build(), filePath!!.absolutePath)
     }
 
     override fun onError(composition: Composition, exportResult: ExportResult, exportException: ExportException) {

@@ -14,6 +14,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.common.MediaItem
+import androidx.media3.common.util.Log
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
 import androidx.media3.exoplayer.ExoPlayer
@@ -84,7 +85,7 @@ class MergeVidsActivity : AppCompatActivity(), Transformer.Listener {
         }
 
         binding.mergeBtn.setOnClickListener{
-            if(videoUrl!!.size<2){
+            if(videoUrl.size<2){
                 Toast.makeText(this,"Please add more videos",Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -98,14 +99,14 @@ class MergeVidsActivity : AppCompatActivity(), Transformer.Listener {
         if(uri==null){
             return@registerForActivityResult
         }
-        videoUrl?.add(uri.toString())
+        videoUrl.add(uri.toString())
         binding.videosCountTv.text = "Videos Count : " + videoUrl.size.toString()
         if(Util.SDK_INT >= 24){
-            if(videoUrl?.size == 1){
+            if(videoUrl.size == 1){
                 initInputPlayer1()
                 inputPlayerView1?.onResume()
 
-            }else if (videoUrl?.size == 2){
+            }else if (videoUrl.size == 2){
                 initInputPlayer2()
                 inputPlayerView2?.onResume()
             }
@@ -118,7 +119,7 @@ class MergeVidsActivity : AppCompatActivity(), Transformer.Listener {
         inputPlayerView2?.player = inputPlayer2
 
 
-        val mediaItem = videoUrl?.let { MediaItem.fromUri(it[1]) }
+        val mediaItem = videoUrl.let { MediaItem.fromUri(it[1]) }
 
         if(mediaItem!=null){
             inputPlayer2?.setMediaItem(mediaItem)
@@ -134,7 +135,7 @@ class MergeVidsActivity : AppCompatActivity(), Transformer.Listener {
         inputPlayerView1?.player = inputPlayer1
 
 
-        val mediaItem = videoUrl?.let { MediaItem.fromUri(it[0]) }
+        val mediaItem = videoUrl.let { MediaItem.fromUri(it[0]) }
 
         if(mediaItem!=null){
             inputPlayer1?.setMediaItem(mediaItem)
@@ -214,7 +215,7 @@ class MergeVidsActivity : AppCompatActivity(), Transformer.Listener {
             .addListener(this@MergeVidsActivity)
             .build()
 
-        for(url in videoUrl!!){
+        for(url in videoUrl){
             editedMediaItemList.add(EditedMediaItem.Builder(MediaItem.fromUri(url)).build())
         }
 
@@ -282,7 +283,7 @@ class MergeVidsActivity : AppCompatActivity(), Transformer.Listener {
         outputPlayerView?.visibility = View.VISIBLE
 
         editedMediaItemList.clear()
-        videoUrl?.clear()
+        videoUrl.clear()
 //        saveBtn.visibility = View.VISIBLE
         initOutputPlayer()
 
@@ -311,6 +312,15 @@ class MergeVidsActivity : AppCompatActivity(), Transformer.Listener {
         super.onStop()
         inputPlayerView1?.onPause()
         inputPlayerView2?.onPause()
+
+        filePath?.let {
+            if (it.exists()) {
+                it.delete()
+                Log.d("MergeVidsActivity", "Temporary file deleted: ${it.absolutePath}")
+            }
+        }
+
+
     }
 
     override fun onPause() {
@@ -322,6 +332,9 @@ class MergeVidsActivity : AppCompatActivity(), Transformer.Listener {
     override fun onDestroy() {
         super.onDestroy()
         releasePlayer()
+        transformer?.cancel() // Stop processing if activity is destroyed
+        transformer = null
+
     }
 
 
