@@ -50,7 +50,6 @@ class VolumeAdjustActivity : AppCompatActivity(),Transformer.Listener {
 
         binding.reduceVolume.setOnClickListener {
             setUpTransformer()
-
         }
 
         binding.button.setOnClickListener {
@@ -64,11 +63,14 @@ class VolumeAdjustActivity : AppCompatActivity(),Transformer.Listener {
 
     private val newVideoPicker = registerForActivityResult(
         ActivityResultContracts.PickVisualMedia()){ uri->
-        videoUrl = uri.toString()
-        if(Util.SDK_INT >= 24){
-            initInputPlayer()
-            binding.inputPlayerView.onResume()
+        if(uri!=null){
+            videoUrl = uri.toString()
+            if(Util.SDK_INT >= 24){
+                initInputPlayer()
+                binding.inputPlayerView.onResume()
+            }
         }
+
     }
 
     private fun initInputPlayer() {

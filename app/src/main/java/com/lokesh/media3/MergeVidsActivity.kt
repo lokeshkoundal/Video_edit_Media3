@@ -121,9 +121,7 @@ class MergeVidsActivity : AppCompatActivity(), Transformer.Listener {
 
         val mediaItem = videoUrl.let { MediaItem.fromUri(it[1]) }
 
-        if(mediaItem!=null){
-            inputPlayer2?.setMediaItem(mediaItem)
-        }
+        inputPlayer2?.setMediaItem(mediaItem)
         inputPlayer2?.seekTo(playbackPosition)
         inputPlayer2?.playWhenReady = playWhenReady
         inputPlayer2?.prepare()
@@ -137,9 +135,7 @@ class MergeVidsActivity : AppCompatActivity(), Transformer.Listener {
 
         val mediaItem = videoUrl.let { MediaItem.fromUri(it[0]) }
 
-        if(mediaItem!=null){
-            inputPlayer1?.setMediaItem(mediaItem)
-        }
+        inputPlayer1?.setMediaItem(mediaItem)
         inputPlayer1?.seekTo(playbackPosition)
         inputPlayer1?.playWhenReady = playWhenReady
         inputPlayer1?.prepare()
