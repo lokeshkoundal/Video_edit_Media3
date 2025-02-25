@@ -3,4 +3,11 @@
     <string name="trim_video">Trim video</string>
     <string name="slider">slider</string>
     <string name="music_is_selected">music is selected</string>
+    <string name="split_range">split range</string>
+    <string name="set_split_point">Set split point</string>
+    <string name="add_video">Add video</string>
+    <string name="start_splitting">Start Splitting</string>
+    <string name="output_2">Output 2</string>
+    <string name="output_1">Output 1</string>
+    <string name="input">input</string>
 </resources>

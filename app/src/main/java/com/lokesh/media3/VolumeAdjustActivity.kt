@@ -153,12 +153,12 @@ class VolumeAdjustActivity : AppCompatActivity(),Transformer.Listener {
      * Otherwise, it scales the audio volume by the specified factor.
      */
     private fun adjustVolume() {
-        binding.progressBar.visibility = View.VISIBLE
         val volume = binding.seekBar.value/100  // Get volume level from SeekBar (0.0 to 1.0)
 
         // Create Audio Processor for Volume Adjustment
 
         if(volume==0.0f){
+            binding.progressBar.visibility = View.VISIBLE
             transformer = Transformer
                 .Builder(this)
                 .addListener(this)
@@ -175,7 +175,12 @@ class VolumeAdjustActivity : AppCompatActivity(),Transformer.Listener {
             filePath = createExternalFile()
             transformer!!.start(editedMediaItem.build(), filePath!!.absolutePath)
         }
+
+        else if(volume==1f){
+            Toast.makeText(this,"Adjust volume",Toast.LENGTH_SHORT).show()
+        }
         else{
+            binding.progressBar.visibility = View.VISIBLE
             val processors = ImmutableList.Builder<AudioProcessor>()
             val mixingAudioProcessor = ChannelMixingAudioProcessor()
 
@@ -221,7 +226,7 @@ class VolumeAdjustActivity : AppCompatActivity(),Transformer.Listener {
     private fun createExternalFile(): File? {
         return try{
             fileName = "Media3_" + System.currentTimeMillis().toString()
-            val file = File(externalCacheDir,"$fileName")
+            val file = File(cacheDir,"$fileName")
             check(!(file.exists() && !file.delete())){
                 "could not delete the previous transformer output file"
             }

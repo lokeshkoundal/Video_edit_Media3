@@ -106,7 +106,7 @@ class AddMusicActivity : AppCompatActivity(),Transformer.Listener {
     private fun createExternalFile(): File? {
         return try{
             fileName = "Media3_" + System.currentTimeMillis().toString()
-            val file = File(externalCacheDir,"$fileName")
+            val file = File(cacheDir,"$fileName")
             check(!(file.exists() && !file.delete())){
                 "could not delete the previous transformer output file"
             }
@@ -138,11 +138,9 @@ class AddMusicActivity : AppCompatActivity(),Transformer.Listener {
         inputPlayer?.playWhenReady = true
         binding.inputPlayerView.player = inputPlayer
 
-        val mediaItem = videoUrl?.let { MediaItem.fromUri(it) }
+        val mediaItem = videoUrl.let { MediaItem.fromUri(it) }
 
-        if(mediaItem!=null){
-            inputPlayer?.setMediaItem(mediaItem)
-        }
+        inputPlayer?.setMediaItem(mediaItem)
         inputPlayer?.seekTo(playbackPosition)
         inputPlayer?.playWhenReady = playWhenReady
         inputPlayer?.prepare()

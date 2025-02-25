@@ -28,7 +28,7 @@
             android:id="@+id/inputPlayerView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:resize_mode="fill"
+            app:resize_mode="fit"
             app:show_buffering="when_playing" />
 
         <TextView

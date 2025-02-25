@@ -9,18 +9,20 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:padding="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
 
         <Button
             android:id="@+id/trimAudioBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_layout"
             android:text="Trim Video"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,9 +30,11 @@
 
         <Button
             android:id="@+id/mergeBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Merge videos"
+            android:background="@drawable/button_layout"
+
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,9 +42,11 @@
 
         <Button
             android:id="@+id/adjustVolumeBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@drawable/button_layout"
+
             android:text="Adjust Volume"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,8 +54,10 @@
 
         <Button
             android:id="@+id/mergeMusicBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_layout"
+
             android:layout_marginTop="10dp"
             android:text="Music merge"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,13 +66,27 @@
 
         <Button
             android:id="@+id/addTextBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@drawable/button_layout"
+
             android:layout_height="wrap_content"
             android:text="Merge Text"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mergeMusicBtn" />
+
+
+        <Button
+            android:id="@+id/splitVideoBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Split Video"
+            android:background="@drawable/button_layout"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addTextBtn" />
 
 
 

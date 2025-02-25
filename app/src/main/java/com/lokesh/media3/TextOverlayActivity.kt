@@ -55,7 +55,7 @@ class TextOverlayActivity : AppCompatActivity(),Transformer.Listener {
 
 
 
-    private var videoUrl : String? = null
+        private var videoUrl : String? = null
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,12 +107,6 @@ class TextOverlayActivity : AppCompatActivity(),Transformer.Listener {
 
     }
 
-    fun getNormalizedPosition(textView: TextView, playerView: PlayerView): Pair<Float, Float> {
-        val xNormalized = textView.x / playerView.width // Normalize X
-        val yNormalized = textView.y / playerView.height // Normalize Y
-        return Pair(xNormalized, yNormalized)
-    }
-
     private fun setUpTransformer(){
         outputPlayer?.stop()
         outputPlayer?.release()
@@ -149,7 +143,7 @@ class TextOverlayActivity : AppCompatActivity(),Transformer.Listener {
     private fun createExternalFile(): File? {
         return try{
             fileName = "Media3_" + System.currentTimeMillis().toString()
-            val file = File(externalCacheDir,"$fileName")
+            val file = File(cacheDir,"$fileName")
             check(!(file.exists() && !file.delete())){
                 "could not delete the previous transformer output file"
             }
@@ -165,19 +159,15 @@ class TextOverlayActivity : AppCompatActivity(),Transformer.Listener {
 
     private fun createOverlayEffectFromBundle(): OverlayEffect? {
         binding.progressBar.visibility = View.VISIBLE
-
-        val (xNormalized, yNormalized) = getNormalizedPosition(binding.overlayTextView, binding.inputPlayerView)
-
         val overlaysBuilder = ImmutableList.Builder<TextureOverlay>()
-
 
         val overlaySettings = OverlaySettings.Builder()
             .setAlphaScale(1f)
-//            .setBackgroundFrameAnchor(0.7f,0.1f)
-            .setOverlayFrameAnchor(xNormalized,yNormalized)
-//            .setBackgroundFrameAnchor(xNormalized,yNormalized)
-            .setScale(1f,1f)
+            .setBackgroundFrameAnchor(-1f, 1f) // Place the overlay at the top-left of the video
+            .setOverlayFrameAnchor(-1f, 1f)
+            .setScale(1.2f,1.2f)
             .build()
+
 
 
         val overlayText = SpannableString(binding.editText.text)

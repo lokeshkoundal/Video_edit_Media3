@@ -81,8 +81,6 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
         }
     }
 
-
-
     private fun launchNewVideoPicker(){
         newVideoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly))
     }
@@ -90,11 +88,11 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
     //old
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
-    ) { isGranted ->
-        if (isGranted.containsValue(false)) {
-            Toast.makeText(this,"Permission Denied",Toast.LENGTH_SHORT).show()
-        }else{
+    ) { permissions ->
+        if (!permissions.all { it.value }) { // Check if all permissions are granted
             launchNewVideoPicker()
+        } else {
+            Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -213,7 +211,7 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
     private fun createExternalFile(): File? {
         return try{
             fileName = "Media3_" + System.currentTimeMillis().toString()
-            val file = File(externalCacheDir,"$fileName")
+            val file = File(cacheDir,"$fileName")
             check(!(file.exists() && !file.delete())){
                 "could not delete the previous transformer output file"
             }

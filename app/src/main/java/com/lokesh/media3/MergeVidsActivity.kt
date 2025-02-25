@@ -150,11 +150,11 @@ class MergeVidsActivity : AppCompatActivity(), Transformer.Listener {
     //old
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
-    ) { isGranted ->
-        if (isGranted.containsValue(false)) {
-            Toast.makeText(this,"Permission Denied", Toast.LENGTH_SHORT).show()
-        }else{
+    ) { permissions ->
+        if (!permissions.all { it.value }) { // Check if all permissions are granted
             launchNewVideoPicker()
+        } else {
+            Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -165,12 +165,12 @@ class MergeVidsActivity : AppCompatActivity(), Transformer.Listener {
             if(hasManageExternalStoragePermission()){
                 launchNewVideoPicker()
             }else{
-                Toast.makeText(this,"Now give Permission", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Pls give Permission", Toast.LENGTH_SHORT).show()
                 requestManageExternalStoragePermission()
             }
         }
 
-    private fun hasManageExternalStoragePermission() : Boolean{
+    private fun hasManageExternalStoragePermission() : Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             Environment.isExternalStorageManager()
         }else{
@@ -230,7 +230,7 @@ class MergeVidsActivity : AppCompatActivity(), Transformer.Listener {
     private fun createExternalFile(): File? {
         return try{
             fileName = "Media3_" + System.currentTimeMillis().toString()
-            val file = File(externalCacheDir,"$fileName")
+            val file = File(cacheDir,"$fileName")
             check(!(file.exists() && !file.delete())){
                 "could not delete the previous transformer output file"
             }
