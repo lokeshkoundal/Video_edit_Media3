@@ -62,22 +62,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/outputPlayerView" />
 
+
+    <TextView
+        android:id="@+id/volumeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volume : 100%"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:layout_marginStart="30dp"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
+
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:textSize="22sp"
         android:text="Adjust Volume"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/outputPlayerView" />
 
-<!--    <SeekBar-->
-<!--        android:id="@+id/seekBar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:max="100"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView5"-->
-<!--        tools:layout_editor_absoluteX="10dp" />-->
 
 
 

@@ -19,11 +19,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.media3.common.Effect
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.Log
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
+import androidx.media3.effect.RgbFilter
+import androidx.media3.effect.TimestampWrapper
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.transformer.Composition
 import androidx.media3.transformer.EditedMediaItem
@@ -68,6 +71,8 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
         android.Manifest.permission.READ_EXTERNAL_STORAGE,
         android.Manifest.permission.MANAGE_EXTERNAL_STORAGE
     ).toTypedArray()
+    
+    
 
     private var videoUrl : String? = null
 
@@ -336,7 +341,6 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
     override fun onDestroy() {
         super.onDestroy()
         releasePlayer()
-
     }
 
     private fun setUpTransformer(){
@@ -345,14 +349,13 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
         outputPlayer = null
         outputPlayerView?.player= null
 
-        kotlin.run {
-            transformVideo()
-        }
+        transformVideo()
+        
     }
 
     private fun transformVideo() {
         progressBar.visibility = View.VISIBLE
-
+        
         transformer = Transformer
             .Builder(this)
             .addListener(this@MainActivity)
@@ -368,13 +371,12 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
                     .build()
             )
             .build()
-
-        val editedMediaItem = EditedMediaItem.Builder(inputMediaItem).apply {
-            setEffects(Effects(mutableListOf(), mutableListOf()))
-        }
-
+//        val editedMediaItem = EditedMediaItem.Builder(inputMediaItem).apply {
+//            setEffects(Effects(mutableListOf(), mutableListOf()))
+//        }
+        
         filePath = createExternalFile()
-        transformer!!.start(editedMediaItem.build(),filePath!!.absolutePath)
+        transformer!!.start(inputMediaItem,filePath!!.absolutePath)
     }
 
     override fun onError(composition: Composition, exportResult: ExportResult,exportException: ExportException) {

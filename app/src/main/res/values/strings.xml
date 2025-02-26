@@ -10,4 +10,9 @@
     <string name="output_2">Output 2</string>
     <string name="output_1">Output 1</string>
     <string name="input">input</string>
+    <string name="start_transformation">Start Transformation</string>
+    <string name="grayscale">GrayScale</string>
+    <string name="add_effect">Add Effect</string>
+    <string name="output_video">Output video</string>
+    <string name="input_video">Input Video</string>
 </resources>

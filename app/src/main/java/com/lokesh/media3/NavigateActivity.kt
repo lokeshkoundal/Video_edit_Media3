@@ -23,6 +23,7 @@ class NavigateActivity : AppCompatActivity(),OnClickListener {
         binding.mergeMusicBtn.setOnClickListener(this)
         binding.addTextBtn.setOnClickListener(this)
         binding.splitVideoBtn.setOnClickListener(this)
+        binding.effectsBtn.setOnClickListener(this)
 
     }
 
@@ -53,10 +54,17 @@ class NavigateActivity : AppCompatActivity(),OnClickListener {
                 val intent = Intent(this, TextOverlayActivity::class.java)
                 startActivity(intent)
             }
+            
             binding.splitVideoBtn.id -> {
                 val intent = Intent(this, SplitVideoActivity::class.java)
                 startActivity(intent)
             }
+            
+            binding.effectsBtn.id -> {
+                val intent = Intent(this, EffectsActivity::class.java)
+                startActivity(intent)
+            }
+            
             else -> {}
 
         }

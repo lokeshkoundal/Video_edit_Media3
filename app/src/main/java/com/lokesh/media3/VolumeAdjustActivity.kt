@@ -20,6 +20,7 @@ import androidx.media3.transformer.Effects
 import androidx.media3.transformer.ExportException
 import androidx.media3.transformer.ExportResult
 import androidx.media3.transformer.Transformer
+import com.google.android.material.slider.Slider
 import com.google.common.collect.ImmutableList
 import com.lokesh.media3.databinding.ActivityVolumeAdjustBinding
 import java.io.File
@@ -55,6 +56,12 @@ class VolumeAdjustActivity : AppCompatActivity(),Transformer.Listener {
         binding.button.setOnClickListener {
             launchNewVideoPicker()
         }
+        
+        
+        binding.seekBar.addOnChangeListener(Slider.OnChangeListener { _, value, _ ->
+            inputPlayer?.volume = value/100
+            binding.volumeTv.text = "Volume : ${value.toInt()}%"
+        })
     }
 
     private fun launchNewVideoPicker(){

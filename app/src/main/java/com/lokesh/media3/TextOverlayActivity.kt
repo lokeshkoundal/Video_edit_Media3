@@ -9,7 +9,6 @@ import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.view.MotionEvent
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,7 +29,6 @@ import androidx.media3.transformer.Effects
 import androidx.media3.transformer.ExportException
 import androidx.media3.transformer.ExportResult
 import androidx.media3.transformer.Transformer
-import androidx.media3.ui.PlayerView
 import com.google.common.collect.ImmutableList
 import com.lokesh.media3.databinding.ActivityTextOverlayBinding
 import java.io.File
@@ -53,9 +51,7 @@ class TextOverlayActivity : AppCompatActivity(),Transformer.Listener {
     private var dX = 0f
     private var dY = 0f
 
-
-
-        private var videoUrl : String? = null
+    private var videoUrl : String? = null
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -119,7 +115,7 @@ class TextOverlayActivity : AppCompatActivity(),Transformer.Listener {
 
     private fun startTransforming() {
         val effects = ImmutableList.Builder<Effect>()
-        val overlay = createOverlayEffectFromBundle()
+        val overlay = createOverlayEffect()
         if(overlay!=null){
             effects.add(overlay)
 
@@ -140,6 +136,23 @@ class TextOverlayActivity : AppCompatActivity(),Transformer.Listener {
         }
     }
 
+    /**
+     * Creates an empty external file in the application's cache directory.
+     *
+     * This function attempts to create a new file within the application's cache directory.
+     * The file name is generated using a prefix "Media3_" and the current system time in milliseconds.
+     *
+     * If a file with the same name already exists, it will attempt to delete the existing file
+     * before creating a new one.
+     *
+     * @return A [File] object representing the newly created file if successful, or `null` if an error occurred.
+     *
+     * @throws IllegalStateException If a file with the generated name already exists and could not be deleted,
+     *                               or if the new file could not be created. These exceptions will be caught
+     *                               and handled internally, resulting in a Toast message and a `null` return.
+     * @throws Exception If there is any unexpected exception during file creation or deletion. These exceptions will be caught
+     *                   and handled internally, resulting in a Toast message and a `null` return.
+     */
     private fun createExternalFile(): File? {
         return try{
             fileName = "Media3_" + System.currentTimeMillis().toString()
@@ -157,7 +170,7 @@ class TextOverlayActivity : AppCompatActivity(),Transformer.Listener {
         }
     }
 
-    private fun createOverlayEffectFromBundle(): OverlayEffect? {
+    private fun createOverlayEffect(): OverlayEffect? {
         binding.progressBar.visibility = View.VISIBLE
         val overlaysBuilder = ImmutableList.Builder<TextureOverlay>()
 
