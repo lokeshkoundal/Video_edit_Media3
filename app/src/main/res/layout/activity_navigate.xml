@@ -57,7 +57,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_layout"
-
             android:layout_marginTop="10dp"
             android:text="Music merge"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +67,6 @@
             android:id="@+id/addTextBtn"
             android:layout_width="match_parent"
             android:background="@drawable/button_layout"
-
             android:layout_height="wrap_content"
             android:text="Merge Text"
             android:layout_marginTop="10dp"
@@ -93,12 +91,22 @@
             android:id="@+id/effectsBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Effects"
-            android:background="@drawable/button_layout"
             android:layout_marginTop="10dp"
+            android:background="@drawable/button_layout"
+            android:text="Add Effects"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addTextBtn" />
+
+        <Button
+            android:id="@+id/imageToVideoBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_layout"
+            android:text="Image to video"
+            app:layout_constraintTop_toBottomOf="@+id/effectsBtn"
+            android:layout_marginTop="10dp"
+            tools:layout_editor_absoluteX="20dp" />
 
 
 

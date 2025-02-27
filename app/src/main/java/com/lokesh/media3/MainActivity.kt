@@ -19,18 +19,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.media3.common.Effect
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.Log
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
-import androidx.media3.effect.RgbFilter
-import androidx.media3.effect.TimestampWrapper
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.transformer.Composition
-import androidx.media3.transformer.EditedMediaItem
-import androidx.media3.transformer.Effects
 import androidx.media3.transformer.ExportException
 import androidx.media3.transformer.ExportResult
 import androidx.media3.transformer.Transformer
@@ -103,8 +98,7 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
 
     //new
     private var resultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            result ->
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ _ ->
             if(hasManageExternalStoragePermission()){
                 launchNewVideoPicker()
             }else{

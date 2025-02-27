@@ -15,4 +15,8 @@
     <string name="add_effect">Add Effect</string>
     <string name="output_video">Output video</string>
     <string name="input_video">Input Video</string>
+    <string name="sepia_effect">Sepia Effect</string>
+    <string name="adjust_hsl">Adjust HSL</string>
+    <string name="inverted">Inverted</string>
+    <string name="_3d_spin_at_start">3D spin at Start</string>
 </resources>

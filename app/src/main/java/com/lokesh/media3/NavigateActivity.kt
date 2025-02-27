@@ -24,6 +24,7 @@ class NavigateActivity : AppCompatActivity(),OnClickListener {
         binding.addTextBtn.setOnClickListener(this)
         binding.splitVideoBtn.setOnClickListener(this)
         binding.effectsBtn.setOnClickListener(this)
+        binding.imageToVideoBtn.setOnClickListener(this)
 
     }
 
@@ -62,6 +63,11 @@ class NavigateActivity : AppCompatActivity(),OnClickListener {
             
             binding.effectsBtn.id -> {
                 val intent = Intent(this, EffectsActivity::class.java)
+                startActivity(intent)
+            }
+            
+            binding.imageToVideoBtn.id -> {
+                val intent = Intent(this, ImageToVideoActivity::class.java)
                 startActivity(intent)
             }
             

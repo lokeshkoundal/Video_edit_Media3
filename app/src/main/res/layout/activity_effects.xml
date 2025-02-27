@@ -112,22 +112,28 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Option 2" />
-
+                        android:text="@string/inverted" />
 
                     <RadioButton
-                        android:id="@+id/radioButton3"
+                        android:id="@+id/sepiaRadio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Option 3" />
+                        android:text="@string/sepia_effect" />
 
                     <RadioButton
-                        android:id="@+id/radioButton4"
+                        android:id="@+id/hslAdjustRadio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Option 4" />
+                        android:text="@string/adjust_hsl" />
+
+                    <RadioButton
+                        android:id="@+id/blurRadio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Blur" />
 
                 </RadioGroup>
 

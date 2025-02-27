@@ -2,22 +2,18 @@ package com.lokesh.media3
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.Effect
 import androidx.media3.common.MediaItem
-import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
+import androidx.media3.effect.GaussianBlur
+import androidx.media3.effect.HslAdjustment
 import androidx.media3.effect.RgbFilter
+import androidx.media3.effect.RgbMatrix
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.transformer.Composition
 import androidx.media3.transformer.EditedMediaItem
@@ -25,10 +21,7 @@ import androidx.media3.transformer.Effects
 import androidx.media3.transformer.ExportException
 import androidx.media3.transformer.ExportResult
 import androidx.media3.transformer.Transformer
-import androidx.media3.ui.PlayerView
-import com.google.android.material.slider.RangeSlider
 import com.lokesh.media3.databinding.ActivityEffectsBinding
-import kotlinx.coroutines.launch
 import java.io.File
 
 @UnstableApi
@@ -38,10 +31,6 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
     private var inputPlayer: ExoPlayer? = null
     private var outputPlayer: ExoPlayer? = null
     
-    private var inputPlayerView: PlayerView? = null
-    private var outputPlayerView: PlayerView? = null
-    private var rangeSlider: RangeSlider? = null
-    
     
     private var fileName: String? = null
     
@@ -50,13 +39,6 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
     private var playWhenReady = true
     private var filePath: File? = null
     
-    private var startMs: Float = 0f
-    private var endMs: Float = 0f
-    
-    private val REQUIRED_PERMISSIONS = mutableListOf(
-        android.Manifest.permission.READ_EXTERNAL_STORAGE,
-        android.Manifest.permission.MANAGE_EXTERNAL_STORAGE
-    ).toTypedArray()
     
     private var videoUrl: String? = null
     
@@ -79,18 +61,15 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
             
             binding.outputPlayerView.player = null
             
+            binding.outputPlayerView.visibility = View.INVISIBLE
             binding.progressBar.visibility = View.VISIBLE
             
             addEffect()
         }
-        
-        
     }
     
     private fun addEffect() {
-        binding.progressBar.visibility = View.VISIBLE
         val effects :MutableList<Effect> = mutableListOf()
-        
         
         transformer = Transformer
             .Builder(this)
@@ -114,10 +93,37 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
                 effects.add(videoEffect)
             }
             
-//            binding.invert.id -> {
-//                val videoEffect =
-//                effects.add(videoEffect)
-//            }
+            binding.sepiaRadio.id -> {
+                
+                val sepiaMatrix = floatArrayOf(
+                    0.393f, 0.769f, 0.189f, 0f,  // Red channel
+                    0.349f, 0.686f, 0.168f, 0f,  // Green channel
+                    0.272f, 0.534f, 0.131f, 0f,  // Blue channel
+                    0f,      0f,      0f,    1f   // Alpha channel
+                )
+                
+                val videoEffect = RgbMatrix{ _, _ ->  sepiaMatrix }
+                effects.add(videoEffect)
+            }
+            
+            binding.hslAdjustRadio.id -> {
+                val videoEffect = HslAdjustment.Builder()
+                    .adjustHue(70f)
+                    .adjustSaturation(60f)
+                    .adjustLightness(50f)
+                    .build()
+                
+                effects.add(videoEffect)
+            }
+            
+            
+            binding.blurRadio.id->{
+//                val videoEffect = Presentation.createForWidthAndHeight(480,800,
+//                    Presentation.LAYOUT_SCALE_TO_FIT
+//                )
+                val videoEffect = GaussianBlur(20f)
+                effects.add(videoEffect)
+            }
 //
 //            binding.blur.id -> {
 //                val videoEffect = RgbFilter.createBlurFilter()
@@ -136,8 +142,6 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
             
             
         }
-        val videoEffect = RgbFilter.createGrayscaleFilter()
-        effects.add(videoEffect)
         
         
         val editedMediaItem = EditedMediaItem.Builder(inputMediaItem).apply {
@@ -169,7 +173,7 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
     override fun onCompleted(composition: Composition, exportResult: ExportResult) {
         super.onCompleted(composition, exportResult)
         binding.progressBar.visibility = View.GONE
-        outputPlayerView?.visibility = View.VISIBLE
+        binding.outputPlayerView.visibility = View.VISIBLE
         initOutputPlayer()
         
 //        saveBtn.setOnClickListener {
@@ -188,7 +192,7 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
     private fun initOutputPlayer(){
         outputPlayer = ExoPlayer.Builder(this).build()
         outputPlayer?.playWhenReady = true
-        outputPlayerView?.player = outputPlayer
+        binding.outputPlayerView.player = outputPlayer
         
         val mediaItem = MediaItem.fromUri("file://$filePath")
         outputPlayer?.setMediaItem(mediaItem)
@@ -196,7 +200,7 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
     }
     
     override fun onError(composition: Composition, exportResult: ExportResult, exportException: ExportException) {
-        outputPlayerView?.visibility = View.GONE
+        binding.outputPlayerView.visibility = View.GONE
         binding.progressBar.visibility = View.GONE
         Toast.makeText(this,exportException.message,Toast.LENGTH_SHORT).show()
     }
@@ -213,7 +217,6 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
             if (Util.SDK_INT >= 24) {
                 initInputPlayer()
                 binding.inputPlayerView.onResume()
-                
             }
         }
     }
