@@ -102,12 +102,21 @@
             android:id="@+id/imageToVideoBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/button_layout"
             android:text="Image to video"
             app:layout_constraintTop_toBottomOf="@+id/effectsBtn"
-            android:layout_marginTop="10dp"
             tools:layout_editor_absoluteX="20dp" />
 
+
+        <Button
+            android:id="@+id/voiceOverBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_layout"
+            android:text="@string/voice_over"
+            app:layout_constraintTop_toBottomOf="@+id/imageToVideoBtn"/>
 
 
 

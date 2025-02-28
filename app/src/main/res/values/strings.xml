@@ -19,4 +19,11 @@
     <string name="adjust_hsl">Adjust HSL</string>
     <string name="inverted">Inverted</string>
     <string name="_3d_spin_at_start">3D spin at Start</string>
+    <string name="enter_no_of_seconds">Enter no. of seconds</string>
+    <string name="add_image">Add Image</string>
+    <string name="create_video">Create Video</string>
+    <string name="input_image">Input image</string>
+    <string name="record_voice_over">Record Voice-over</string>
+    <string name="voice_over">Voice Over</string>
+    <string name="start_recording">Start Recording</string>
 </resources>

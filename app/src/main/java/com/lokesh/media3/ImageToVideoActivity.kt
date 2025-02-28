@@ -2,7 +2,6 @@ package com.lokesh.media3
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -31,6 +30,9 @@ class ImageToVideoActivity : AppCompatActivity(),Transformer.Listener {
     private var transformer : Transformer? = null
     private var filePath : File? = null
     
+    private var isRecording = false
+    
+    
     
     private val newImagePicker = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
 //        releasePlayer()
@@ -48,15 +50,16 @@ class ImageToVideoActivity : AppCompatActivity(),Transformer.Listener {
         }
         
         binding.createVideoBtn.setOnClickListener {
-            transformVideo()
+            binding.progressBar.visibility = View.VISIBLE
+            outputPlayer = null
+            binding.outputPlayerView.player = null
+            binding.outputPlayerView.visibility = View.INVISIBLE
+            
+            transformImageToVideo()
         }
     }
     
-    private fun transformVideo() {
-        binding.progressBar.visibility = View.VISIBLE
-        outputPlayer = null
-        binding.outputPlayerView.player = null
-        binding.outputPlayerView.visibility = View.INVISIBLE
+    private fun transformImageToVideo() {
         
         transformer = Transformer.Builder(this)
             .addListener(this)
@@ -71,7 +74,6 @@ class ImageToVideoActivity : AppCompatActivity(),Transformer.Listener {
         
         filePath = createExternalFile()
         transformer!!.start(editedMediaItem,filePath!!.absolutePath)
-
         
     }
     
@@ -81,12 +83,6 @@ class ImageToVideoActivity : AppCompatActivity(),Transformer.Listener {
         binding.progressBar.visibility = View.GONE
         binding.outputPlayerView.visibility = View.VISIBLE
         
-        try {
-            Log.d("File Size : ",(filePath?.length()?.div(1024*1024)).toString())
-            Toast.makeText(this,"File Size : ${filePath?.length()?.div(1024*1024).toString()}",Toast.LENGTH_SHORT).show()
-        }catch (e:Exception){
-            Toast.makeText(this,e.message,Toast.LENGTH_SHORT).show()
-        }
         initOutputPlayer()
 
     }

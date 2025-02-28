@@ -64,7 +64,8 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
 
     private val REQUIRED_PERMISSIONS = mutableListOf(
         android.Manifest.permission.READ_EXTERNAL_STORAGE,
-        android.Manifest.permission.MANAGE_EXTERNAL_STORAGE
+        android.Manifest.permission.MANAGE_EXTERNAL_STORAGE,
+        android.Manifest.permission.RECORD_AUDIO
     ).toTypedArray()
     
     
