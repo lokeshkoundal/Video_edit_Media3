@@ -141,7 +141,6 @@ class SplitVideoActivity : AppCompatActivity(),Transformer.Listener {
             if (Util.SDK_INT >= 24) {
                 initInputPlayer()
                 binding.inputPlayerView.onResume()
-
             }
         }
     }

@@ -58,7 +58,6 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
     private var playbackPosition =  0L
     private var playWhenReady = true
     private var filePath : File? = null
-
     private var startMs : Float = 0f
     private var endMs : Float = 0f
 
@@ -68,18 +67,13 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
         android.Manifest.permission.RECORD_AUDIO
     ).toTypedArray()
     
-    
-
     private var videoUrl : String? = null
-
 
     private val newVideoPicker = registerForActivityResult(
         ActivityResultContracts.PickVisualMedia()){uri->
         videoUrl = uri.toString()
-        if(Util.SDK_INT >= 24){
-            initInputPlayer()
-            inputPlayerView?.onResume()
-        }
+        initInputPlayer()
+        inputPlayerView?.onResume()
     }
 
     private fun launchNewVideoPicker(){
@@ -129,7 +123,6 @@ class MainActivity : AppCompatActivity(),Transformer.Listener {
             return false
         }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
