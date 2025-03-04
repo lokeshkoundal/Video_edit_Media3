@@ -1,35 +1,26 @@
-package com.lokesh.media3
+package com.lokesh.media3.activities
 
-import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
-import android.content.Context
 import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.animation.doOnEnd
-import androidx.media3.common.Effect
 import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
-import androidx.media3.effect.GaussianBlur
-import androidx.media3.effect.TimestampWrapper
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.transformer.Composition
 import androidx.media3.transformer.EditedMediaItem
 import androidx.media3.transformer.EditedMediaItemSequence
-import androidx.media3.transformer.Effects
 import androidx.media3.transformer.ExportException
 import androidx.media3.transformer.ExportResult
 import androidx.media3.transformer.Transformer
 import androidx.media3.ui.PlayerView
+import com.lokesh.media3.R
 import com.lokesh.media3.databinding.ActivityVoiceOverBinding
 import java.io.File
 
@@ -40,20 +31,14 @@ class VoiceOverActivity : AppCompatActivity(),Transformer.Listener {
     private var inputPlayer : ExoPlayer? = null
     private var outputPlayer : ExoPlayer? = null
     private var inputPlayerView : PlayerView? = null
-    private var outputPlayerView : PlayerView? = null
     private var audioFilePath: String? = null
     private var mediaRecorder: MediaRecorder? = null
     
-    
     private var isRecording = false
-    
-    
     
     val silentAudioUri = Uri.parse("android.resource://com.lokesh.media3/raw/silent")
     
-    private lateinit var progressBar : ProgressBar
     private var transformer : Transformer? = null
-    private var playbackPosition =  0L
     private var filePath : File? = null
     private var videoUrl : String? = null
     private val playWhenReady = true
@@ -83,7 +68,6 @@ class VoiceOverActivity : AppCompatActivity(),Transformer.Listener {
         inputPlayer?.playWhenReady = playWhenReady
         inputPlayerView?.player = inputPlayer
         
-        
         val mediaItem = videoUrl?.let { MediaItem.fromUri(it) }
         
         if(mediaItem!=null){
@@ -94,8 +78,8 @@ class VoiceOverActivity : AppCompatActivity(),Transformer.Listener {
         
     }
     
-    
     private fun startRecording() {
+        isRecording = true
         
         val file = File(cacheDir, "voiceover_${System.currentTimeMillis()}.mp3")
         audioFilePath = file.absolutePath
@@ -121,6 +105,8 @@ class VoiceOverActivity : AppCompatActivity(),Transformer.Listener {
     }
     
     private fun stopRecording(): String? {
+        isRecording = false
+        
         binding.recordBtn.setImageResource(R.drawable.ic_mic)
         binding.startOrStopRecording.text = "Start Recording"
         mediaRecorder?.apply {
@@ -163,7 +149,6 @@ class VoiceOverActivity : AppCompatActivity(),Transformer.Listener {
             
            if(checkMicPermissionAndRecord()){
                if(isRecording){
-                   isRecording = false
                    stopRecording()
                    inputPlayer?.pause()
                    stopTimeInMs = inputPlayer?.currentPosition!!
@@ -172,7 +157,6 @@ class VoiceOverActivity : AppCompatActivity(),Transformer.Listener {
                
                else{
                    if(videoUrl!=null){
-                       isRecording = true
                        startRecording()
                        startTimeInMs= inputPlayer?.currentPosition!!
                        Toast.makeText(this,"Recording Started at ${startTimeInMs/1000}",Toast.LENGTH_SHORT).show()
@@ -207,7 +191,6 @@ class VoiceOverActivity : AppCompatActivity(),Transformer.Listener {
         outputPlayer?.release()
         outputPlayer = null
         binding.outputPlayerView.player = null
-        
         binding.progressBar.visibility = View.VISIBLE
         
         transformer = Transformer.Builder(this)

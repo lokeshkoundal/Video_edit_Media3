@@ -1,4 +1,4 @@
-package com.lokesh.media3
+package com.lokesh.media3.activities
 
 import android.content.ContentValues
 import android.content.Intent
@@ -31,6 +31,7 @@ import androidx.media3.transformer.ExportResult
 import androidx.media3.transformer.Transformer
 import androidx.media3.ui.PlayerView
 import com.google.android.material.slider.RangeSlider
+import com.lokesh.media3.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

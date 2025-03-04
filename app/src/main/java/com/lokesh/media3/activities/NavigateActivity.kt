@@ -1,4 +1,4 @@
-package com.lokesh.media3
+package com.lokesh.media3.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -26,6 +26,7 @@ class NavigateActivity : AppCompatActivity(),OnClickListener {
         binding.effectsBtn.setOnClickListener(this)
         binding.imageToVideoBtn.setOnClickListener(this)
         binding.voiceOverBtn.setOnClickListener(this)
+        binding.videoEditorBtn.setOnClickListener(this)
 
 
     }
@@ -34,12 +35,12 @@ class NavigateActivity : AppCompatActivity(),OnClickListener {
     override fun onClick(btn: View?) {
         when(btn?.id){
             binding.trimAudioBtn.id -> {
-                val intent = Intent(this,MainActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
 
             binding.mergeBtn.id -> {
-                val intent = Intent(this,MergeVidsActivity::class.java)
+                val intent = Intent(this, MergeVidsActivity::class.java)
                 startActivity(intent)
             }
 
@@ -74,6 +75,10 @@ class NavigateActivity : AppCompatActivity(),OnClickListener {
             }
             binding.voiceOverBtn.id -> {
                 val intent = Intent(this, VoiceOverActivity::class.java)
+                startActivity(intent)
+            }
+            binding.videoEditorBtn.id -> {
+                val intent = Intent(this, VideoEditorActivity::class.java)
                 startActivity(intent)
             }
             

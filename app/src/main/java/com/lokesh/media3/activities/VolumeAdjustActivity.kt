@@ -1,4 +1,4 @@
-package com.lokesh.media3
+package com.lokesh.media3.activities
 
 import android.os.Bundle
 import android.view.View

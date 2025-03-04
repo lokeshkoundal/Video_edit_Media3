@@ -1,4 +1,4 @@
-package com.lokesh.media3
+package com.lokesh.media3.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -30,6 +30,7 @@ import androidx.media3.transformer.ExportException
 import androidx.media3.transformer.ExportResult
 import androidx.media3.transformer.Transformer
 import com.google.common.collect.ImmutableList
+import com.lokesh.media3.R
 import com.lokesh.media3.databinding.ActivityTextOverlayBinding
 import java.io.File
 
@@ -100,7 +101,6 @@ class TextOverlayActivity : AppCompatActivity(),Transformer.Listener {
             }
 
         })
-
     }
 
     private fun setUpTransformer(){
@@ -185,7 +185,7 @@ class TextOverlayActivity : AppCompatActivity(),Transformer.Listener {
 
         val overlayText = SpannableString(binding.editText.text)
         overlayText.setSpan(
-            ForegroundColorSpan(ContextCompat.getColor(this,R.color.black)),
+            ForegroundColorSpan(ContextCompat.getColor(this, R.color.black)),
             0,
             overlayText.length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE

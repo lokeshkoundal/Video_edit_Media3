@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NavigateActivity">
+    tools:context=".activities.NavigateActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_layout"
-            android:text="Trim Video"
+            android:text="@string/trim_video"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,9 +32,8 @@
             android:id="@+id/mergeBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Merge videos"
+            android:text="@string/merge_videos"
             android:background="@drawable/button_layout"
-
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,8 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_layout"
-
-            android:text="Adjust Volume"
+            android:text="@string/adjust_volume"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mergeBtn" />
@@ -58,7 +56,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_layout"
             android:layout_marginTop="10dp"
-            android:text="Music merge"
+            android:text="@string/music_merge"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adjustVolumeBtn" />
@@ -68,7 +66,7 @@
             android:layout_width="match_parent"
             android:background="@drawable/button_layout"
             android:layout_height="wrap_content"
-            android:text="Merge Text"
+            android:text="@string/merge_text"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,12 +77,12 @@
             android:id="@+id/splitVideoBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Split Video"
+            android:text="@string/split_video"
             android:background="@drawable/button_layout"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addTextBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/voiceOverBtn" />
 
 
         <Button
@@ -93,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_layout"
-            android:text="Add Effects"
+            android:text="@string/add_effects"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addTextBtn" />
@@ -104,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_layout"
-            android:text="Image to video"
+            android:text="@string/image_to_video"
             app:layout_constraintTop_toBottomOf="@+id/effectsBtn"
             tools:layout_editor_absoluteX="20dp" />
 
@@ -117,6 +115,16 @@
             android:background="@drawable/button_layout"
             android:text="@string/voice_over"
             app:layout_constraintTop_toBottomOf="@+id/imageToVideoBtn"/>
+
+
+        <Button
+            android:id="@+id/videoEditorBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_layout"
+            android:text="Video Editor"
+            app:layout_constraintTop_toBottomOf="@+id/splitVideoBtn"/>
 
 
 
