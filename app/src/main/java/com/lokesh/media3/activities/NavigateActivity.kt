@@ -28,7 +28,6 @@ class NavigateActivity : AppCompatActivity(),OnClickListener {
         binding.voiceOverBtn.setOnClickListener(this)
         binding.videoEditorBtn.setOnClickListener(this)
 
-
     }
 
     @OptIn(UnstableApi::class)

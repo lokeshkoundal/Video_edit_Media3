@@ -101,7 +101,6 @@ class VoiceOverActivity : AppCompatActivity(),Transformer.Listener {
             start()
         }
         
-        
     }
     
     private fun stopRecording(): String? {
@@ -224,14 +223,14 @@ class VoiceOverActivity : AppCompatActivity(),Transformer.Listener {
             .setRemoveAudio(true)
             .build())
         
-        val mediaItemSequence = EditedMediaItemSequence.Builder(editedMediaItemList).build()
+        val videoMediaItemSequence = EditedMediaItemSequence.Builder(editedMediaItemList).build()
         
         val backgroundAudioSequence =  EditedMediaItemSequence.Builder(audioEditedMediaItemList)
             .setIsLooping(false)
             .build()
         
         
-        val composition = Composition.Builder(mediaItemSequence,backgroundAudioSequence).build()
+        val composition = Composition.Builder(videoMediaItemSequence,backgroundAudioSequence).build()
         
         filePath = createExternalFile()
         transformer!!.start(composition,filePath!!.absolutePath)

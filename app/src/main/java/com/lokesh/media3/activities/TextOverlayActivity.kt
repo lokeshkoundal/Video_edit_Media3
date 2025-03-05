@@ -99,7 +99,6 @@ class TextOverlayActivity : AppCompatActivity(),Transformer.Listener {
             override fun afterTextChanged(p0: Editable?) {
                 binding.overlayTextView.text = binding.editText.text
             }
-
         })
     }
 

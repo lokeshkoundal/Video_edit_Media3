@@ -65,9 +65,11 @@
                 android:id="@+id/outputPlayerView"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                android:visibility="invisible"
                 android:layout_marginBottom="10dp"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@+id/textView13"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView14"
                 app:resize_mode="fit"
                 app:show_buffering="when_playing" />
@@ -134,6 +136,14 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Blur" />
+
+                    <RadioButton
+                        android:id="@+id/brightness"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Reduce brightness" />
+
 
                 </RadioGroup>
 

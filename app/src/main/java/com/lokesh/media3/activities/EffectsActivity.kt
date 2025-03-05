@@ -10,10 +10,15 @@ import androidx.media3.common.Effect
 import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
+import androidx.media3.effect.Brightness
+import androidx.media3.effect.Contrast
+import androidx.media3.effect.Crop
 import androidx.media3.effect.GaussianBlur
 import androidx.media3.effect.HslAdjustment
+import androidx.media3.effect.MatrixTransformation
 import androidx.media3.effect.RgbFilter
 import androidx.media3.effect.RgbMatrix
+import androidx.media3.effect.ScaleAndRotateTransformation
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.transformer.Composition
 import androidx.media3.transformer.EditedMediaItem
@@ -122,18 +127,30 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
 //                    Presentation.LAYOUT_SCALE_TO_FIT
 //                )
                 val videoEffect = GaussianBlur(20f)
+                
+//                val scale = ScaleAndRotateTransformation.Builder()
+//                    .setScale(2f,2f)
+//                    .build()
+//
+//                val crop = Crop(-0.3f,1f,-0.3f,1f)
+                
                 effects.add(videoEffect)
             }
+            
+            
 //
 //            binding.blur.id -> {
 //                val videoEffect = RgbFilter.createBlurFilter()
 //                effects.add(videoEffect)
 //            }
 //
-//            binding.sharpen.id -> {
-//                val videoEffect = RgbFilter.createSharpenFilter()
-//                effects.add(videoEffect)
-//            }
+            binding.brightness.id -> {
+//                val contrast = Contrast(-0.3f)
+                val brightness = Brightness(-0.3f)
+                
+//                effects.add(contrast)
+                effects.add(brightness)
+            }
 //
 //            binding.vignette.id -> {
 //                val videoEffect = RgbFilter.createVignetteFilter()
@@ -156,7 +173,7 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
     private fun createExternalFile(): File? {
         return try{
             fileName = "Media3_" + System.currentTimeMillis().toString()
-            val file = File(cacheDir,"$fileName")
+            val file = File(this.externalCacheDir,"$fileName")
             check(!(file.exists() && !file.delete())){
                 "could not delete the previous transformer output file"
             }

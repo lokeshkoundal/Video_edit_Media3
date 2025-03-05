@@ -23,16 +23,11 @@ class ImageToVideoActivity : AppCompatActivity(),Transformer.Listener {
     private lateinit var binding : ActivityImageToVideoBinding
     private var imageUri : String = ""
     
-    
     private var outputPlayer : ExoPlayer? = null
     private var fileName : String? = null
     
     private var transformer : Transformer? = null
     private var filePath : File? = null
-    
-    private var isRecording = false
-    
-    
     
     private val newImagePicker = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
 //        releasePlayer()
