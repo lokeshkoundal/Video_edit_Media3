@@ -29,6 +29,7 @@ import androidx.media3.transformer.Effects
 import androidx.media3.transformer.ExportException
 import androidx.media3.transformer.ExportResult
 import androidx.media3.transformer.Transformer
+import com.google.android.material.chip.ChipGroup
 import com.google.common.collect.ImmutableList
 import com.lokesh.media3.R
 import com.lokesh.media3.databinding.ActivityTextOverlayBinding
@@ -83,7 +84,6 @@ class TextOverlayActivity : AppCompatActivity(),Transformer.Listener {
                         .setDuration(0)
                         .start()
                 }
-
             }
             true
         }
@@ -132,6 +132,8 @@ class TextOverlayActivity : AppCompatActivity(),Transformer.Listener {
 
             filePath = createExternalFile()
             filePath?.absolutePath?.let { transformer!!.start(editedMediaItem.build(), it) }
+        }else{
+            binding.progressBar.visibility = View.GONE
         }
     }
 
@@ -155,7 +157,7 @@ class TextOverlayActivity : AppCompatActivity(),Transformer.Listener {
     private fun createExternalFile(): File? {
         return try{
             fileName = "Media3_" + System.currentTimeMillis().toString()
-            val file = File(cacheDir,"$fileName")
+            val file = File(externalCacheDir,"$fileName")
             check(!(file.exists() && !file.delete())){
                 "could not delete the previous transformer output file"
             }
@@ -172,16 +174,108 @@ class TextOverlayActivity : AppCompatActivity(),Transformer.Listener {
     private fun createOverlayEffect(): OverlayEffect? {
         binding.progressBar.visibility = View.VISIBLE
         val overlaysBuilder = ImmutableList.Builder<TextureOverlay>()
-
-        val overlaySettings = OverlaySettings.Builder()
-            .setAlphaScale(1f)
-            .setBackgroundFrameAnchor(-1f, 1f) // Place the overlay at the top-left of the video
-            .setOverlayFrameAnchor(-1f, 1f)
-            .setScale(1.2f,1.2f)
-            .build()
-
-
-
+        
+        val overlaySettings : OverlaySettings
+        
+        when (binding.chipGroup.checkedChipId) {
+                R.id.topLeft -> {
+                    overlaySettings = OverlaySettings.Builder()
+                        .setAlphaScale(1f)
+                        .setBackgroundFrameAnchor(-1f, 1f)
+                        .setOverlayFrameAnchor(-1f, 1f)
+                        .setScale(1.2f,1.2f)
+                        .build()
+                }
+                
+                R.id.topCenter -> {
+                    //top center
+                    overlaySettings = OverlaySettings.Builder()
+                        .setAlphaScale(1f)
+                        .setBackgroundFrameAnchor(0f,1f)
+                        .setOverlayFrameAnchor(0f, 1f)
+                        .setScale(1.2f,1.2f)
+                        .build()
+                }
+                
+                R.id.topRight -> {
+//                    top right
+                    overlaySettings = OverlaySettings.Builder()
+                           .setAlphaScale(1f)
+                           .setBackgroundFrameAnchor(1f, 1f)
+                           .setOverlayFrameAnchor(1f, 1f)
+                           .setScale(1.2f,1.2f)
+                           .build()
+                }
+                
+                R.id.centerLeft -> {
+                    //  left center
+                    overlaySettings = OverlaySettings.Builder()
+                        .setAlphaScale(1f)
+                        .setBackgroundFrameAnchor(-1f,0f)
+                        .setOverlayFrameAnchor(-1f, 0f)
+                        .setScale(1.2f,1.2f)
+                        .build()
+        
+                }
+                
+                R.id.center -> {
+                    //center
+                    overlaySettings = OverlaySettings.Builder()
+                        .setAlphaScale(1f)
+                        .setBackgroundFrameAnchor(0f,0f)
+                        .setOverlayFrameAnchor(0f, 0f)
+                        .setScale(1.2f,1.2f)
+                        .build()
+         
+                }
+                
+                R.id.centerRight -> {
+                    // right center
+                     overlaySettings = OverlaySettings.Builder()
+                         .setAlphaScale(1f)
+                         .setBackgroundFrameAnchor(1f,0f)
+                         .setOverlayFrameAnchor(1f, 0f)
+                         .setScale(1.2f,1.2f)
+                         .build()
+                }
+                
+                R.id.bottomLeft -> {
+                    // left bottom
+                    overlaySettings = OverlaySettings.Builder()
+                        .setAlphaScale(1f)
+                        .setBackgroundFrameAnchor(-1f, -1f)
+                        .setOverlayFrameAnchor(-1f, -1f)
+                        .setScale(1.2f,1.2f)
+                        .build()
+        
+                    
+                }
+                
+                R.id.bottomCenter -> {
+                    // bottom center
+                    overlaySettings = OverlaySettings.Builder()
+                        .setAlphaScale(1f)
+                        .setBackgroundFrameAnchor(0f,-1f)
+                        .setOverlayFrameAnchor(0f, -1f)
+                        .setScale(1.2f,1.2f)
+                        .build()
+                }
+                
+                R.id.bottomRight -> {
+//                    Bottom right
+                     overlaySettings = OverlaySettings.Builder()
+                        .setAlphaScale(1f)
+                        .setBackgroundFrameAnchor(1f, -1f)
+                        .setOverlayFrameAnchor(1f, -1f)
+                        .setScale(1.2f,1.2f)
+                        .build()
+        
+                }
+                else -> {Toast.makeText(this,"No chip selected",Toast.LENGTH_SHORT).show()
+                    return null
+            }
+        }
+        
         val overlayText = SpannableString(binding.editText.text)
         overlayText.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(this, R.color.black)),

@@ -151,7 +151,7 @@ class SplitVideoActivity : AppCompatActivity(),Transformer.Listener {
          try{
             if(fileno==1) {
                 fileName1 = "Media3_" + System.currentTimeMillis().toString()
-                val file = File(cacheDir, "$fileName1")
+                val file = File(externalCacheDir, "$fileName1")
 
                 check(!(file.exists() && !file.delete())) {
                     "could not delete the previous transformer output file"

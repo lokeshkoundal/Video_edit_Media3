@@ -7,12 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".activities.TextOverlayActivity">
 
-
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="input"
+        android:text="@string/input_video"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +37,7 @@
             android:textColor="#FF5722"
             android:hint="Add Text"
             android:padding="10dp"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
 
 
     </FrameLayout>
@@ -98,10 +97,162 @@
         android:id="@+id/addVideoBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Video"
+        android:text="@string/add_video"
         app:layout_constraintBottom_toTopOf="@+id/addTextBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_position"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/addVideoBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/outputPlayerView">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="#4B4747"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp">
+
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:singleSelection="true">
+
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/topLeft"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:checkable="true"
+                    android:text="@string/tl"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    app:checkedIcon="@drawable/ic_check"
+                    app:checkedIconEnabled="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/topCenter"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:checkable="true"
+                    android:text="@string/tc"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    app:checkedIcon="@drawable/ic_check"
+                    app:checkedIconEnabled="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/topRight"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:checkable="true"
+                    android:text="@string/tr"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    app:checkedIcon="@drawable/ic_check"
+                    app:checkedIconEnabled="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/centerLeft"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:checkable="true"
+                    android:text="@string/cl"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    app:checkedIcon="@drawable/ic_check"
+                    app:checkedIconEnabled="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/center"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:checkable="true"
+                    android:text="@string/c"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    app:checkedIcon="@drawable/ic_check"
+                    app:checkedIconEnabled="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/centerRight"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:checkable="true"
+                    android:text="@string/cr"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    app:checkedIcon="@drawable/ic_check"
+                    app:checkedIconEnabled="true" />
+
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/bottomLeft"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:checkable="true"
+                    android:text="@string/bl"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    app:checkedIcon="@drawable/ic_check"
+                    app:checkedIconEnabled="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/bottomCenter"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:checkable="true"
+                    android:text="@string/bc"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    app:checkedIcon="@drawable/ic_check"
+                    app:checkedIconEnabled="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/bottomRight"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:checkable="true"
+                    android:text="@string/br"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    app:checkedIcon="@drawable/ic_check"
+                    app:checkedIconEnabled="true" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

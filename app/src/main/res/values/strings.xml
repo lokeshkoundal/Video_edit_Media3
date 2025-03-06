@@ -43,4 +43,15 @@
     <string name="play">play</string>
     <string name="redo">redo</string>
     <string name="undo">undo</string>
+    <string name="top_left">Top left</string>
+    <string name="bc">BC</string>
+    <string name="br">BR</string>
+    <string name="bl">BL</string>
+    <string name="cr">CR</string>
+    <string name="c">C</string>
+    <string name="cl">CL</string>
+    <string name="tr">TR</string>
+    <string name="tc">TC</string>
+    <string name="tl">TL</string>
+    <string name="select_position">Select position</string>
 </resources>

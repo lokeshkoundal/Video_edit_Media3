@@ -97,7 +97,7 @@ class ImageToVideoActivity : AppCompatActivity(),Transformer.Listener {
     private fun createExternalFile(): File? {
         return try{
             fileName = "Media3_" + System.currentTimeMillis().toString()
-            val file = File(cacheDir,"$fileName")
+            val file = File(externalCacheDir,"$fileName")
             check(!(file.exists() && !file.delete())){
                 "could not delete the previous transformer output file"
             }

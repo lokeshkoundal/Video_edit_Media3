@@ -209,14 +209,15 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#DEDEDE"
-            tools:layout_editor_absoluteX="10dp">
+            android:background="#DEDEDE">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="0dp"
-                android:layout_height="90dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginTop="10dp"
+                android:overScrollMode="ifContentScrolls"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
@@ -224,7 +225,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="4dp"
-                android:layout_height="110dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="40dp"
                 android:background="#EF2121"
                 android:orientation="vertical"

@@ -113,9 +113,9 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
             
             binding.hslAdjustRadio.id -> {
                 val videoEffect = HslAdjustment.Builder()
-                    .adjustHue(70f)
+                    .adjustHue(-30f)
                     .adjustSaturation(60f)
-                    .adjustLightness(50f)
+                    .adjustLightness(20f)
                     .build()
                 
                 effects.add(videoEffect)
@@ -128,9 +128,9 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
 //                )
                 val videoEffect = GaussianBlur(20f)
                 
-//                val scale = ScaleAndRotateTransformation.Builder()
-//                    .setScale(2f,2f)
-//                    .build()
+                val scale = ScaleAndRotateTransformation.Builder()
+                    .setScale(2f,2f)
+                    .build()
 //
 //                val crop = Crop(-0.3f,1f,-0.3f,1f)
                 
@@ -156,7 +156,7 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
 //                val videoEffect = RgbFilter.createVignetteFilter()
 //                effects.add(videoEffect)
 //            }
-            
+        
             
         }
         
