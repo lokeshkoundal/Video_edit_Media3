@@ -41,6 +41,15 @@
                 app:show_buffering="when_playing" />
 
 
+<!--            <com.lokesh.media3.MyGLSurfaceView-->
+<!--                android:id="@+id/inputPlayerView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="240dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/textView12" />-->
+
+
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"

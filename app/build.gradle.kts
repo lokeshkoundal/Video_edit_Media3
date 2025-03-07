@@ -52,12 +52,22 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-//    implementation ("androidx.media3:media3-exoplayer-ffmpeg:1.2.0")
     implementation(libs.androidx.media3.transformer)
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
     implementation(libs.androidx.media3.common.ktx)
     implementation(libs.androidx.media3.exoplayer.hls)
     implementation(libs.androidx.media3.effect)
-  
+
+//    implementation(libs.sceneview)
+    implementation (libs.core)
+//    implementation (libs.arsceneview)
+//    implementation (libs.arsceneview)
+    
+//    implementation (libs.sceneform)
+//    implementation ('com.google.mlkit:barcode-scanning:17.2.0' ) // For QR Code
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)// ViewModel
+    
+    implementation (libs.arsceneview.v0100)
+    
 }

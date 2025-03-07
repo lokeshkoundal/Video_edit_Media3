@@ -30,7 +30,7 @@ import com.lokesh.media3.databinding.ActivityEffectsBinding
 import java.io.File
 
 @UnstableApi
-class EffectsActivity : AppCompatActivity(),Transformer.Listener {
+class EffectsActivity : AppCompatActivity(), Transformer.Listener {
     private lateinit var binding: ActivityEffectsBinding
     
     private var inputPlayer: ExoPlayer? = null
@@ -63,7 +63,6 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
             outputPlayer?.release()
             
             outputPlayer = null
-            
             binding.outputPlayerView.player = null
             
             binding.outputPlayerView.visibility = View.INVISIBLE
@@ -74,7 +73,7 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
     }
     
     private fun addEffect() {
-        val effects :MutableList<Effect> = mutableListOf()
+        val effects: MutableList<Effect> = mutableListOf()
         
         transformer = Transformer
             .Builder(this)
@@ -86,7 +85,7 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
             .setUri(videoUrl)
             .build()
         
-        when(binding.radioGroup.checkedRadioButtonId){
+        when (binding.radioGroup.checkedRadioButtonId) {
             
             binding.grayscaleRadio.id -> {
                 val videoEffect = RgbFilter.createGrayscaleFilter()
@@ -104,10 +103,10 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
                     0.393f, 0.769f, 0.189f, 0f,  // Red channel
                     0.349f, 0.686f, 0.168f, 0f,  // Green channel
                     0.272f, 0.534f, 0.131f, 0f,  // Blue channel
-                    0f,      0f,      0f,    1f   // Alpha channel
+                    0f, 0f, 0f, 1f   // Alpha channel
                 )
                 
-                val videoEffect = RgbMatrix{ _, _ ->  sepiaMatrix }
+                val videoEffect = RgbMatrix { _, _ -> sepiaMatrix }
                 effects.add(videoEffect)
             }
             
@@ -122,22 +121,22 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
             }
             
             
-            binding.blurRadio.id->{
+            binding.blurRadio.id -> {
 //                val videoEffect = Presentation.createForWidthAndHeight(480,800,
 //                    Presentation.LAYOUT_SCALE_TO_FIT
 //                )
                 val videoEffect = GaussianBlur(20f)
                 
                 val scale = ScaleAndRotateTransformation.Builder()
-                    .setScale(2f,2f)
+                    .setScale(2f, 2f)
                     .build()
 //
 //                val crop = Crop(-0.3f,1f,-0.3f,1f)
                 
                 effects.add(videoEffect)
             }
-            
-            
+
+
 //
 //            binding.blur.id -> {
 //                val videoEffect = RgbFilter.createBlurFilter()
@@ -147,7 +146,7 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
             binding.brightness.id -> {
 //                val contrast = Contrast(-0.3f)
                 val brightness = Brightness(-0.3f)
-                
+
 //                effects.add(contrast)
                 effects.add(brightness)
             }
@@ -171,18 +170,20 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
     }
     
     private fun createExternalFile(): File? {
-        return try{
+        return try {
             fileName = "Media3_" + System.currentTimeMillis().toString()
-            val file = File(this.externalCacheDir,"$fileName")
-            check(!(file.exists() && !file.delete())){
+            val file = File(this.externalCacheDir, "$fileName")
+            check(!(file.exists() && !file.delete())) {
                 "could not delete the previous transformer output file"
             }
-            check(file.createNewFile()){"could not create the transformer output file"}
+            check(file.createNewFile()) { "could not create the transformer output file" }
             file
-        }catch (e:Exception){
-            Toast.makeText(this,
+        } catch (e: Exception) {
+            Toast.makeText(
+                this,
                 "could not create the transformer output file ${e.message}",
-                Toast.LENGTH_SHORT).show()
+                Toast.LENGTH_SHORT
+            ).show()
             null
         }
     }
@@ -192,7 +193,7 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
         binding.progressBar.visibility = View.GONE
         binding.outputPlayerView.visibility = View.VISIBLE
         initOutputPlayer()
-        
+
 //        saveBtn.setOnClickListener {
 //            if(fileName!=null &&filePath!=null){
 //                lifecycleScope.launch {
@@ -206,7 +207,7 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
 //        }
     }
     
-    private fun initOutputPlayer(){
+    private fun initOutputPlayer() {
         outputPlayer = ExoPlayer.Builder(this).build()
         outputPlayer?.playWhenReady = true
         binding.outputPlayerView.player = outputPlayer
@@ -216,10 +217,14 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
         outputPlayer?.prepare()
     }
     
-    override fun onError(composition: Composition, exportResult: ExportResult, exportException: ExportException) {
+    override fun onError(
+        composition: Composition,
+        exportResult: ExportResult,
+        exportException: ExportException
+    ) {
         binding.outputPlayerView.visibility = View.GONE
         binding.progressBar.visibility = View.GONE
-        Toast.makeText(this,exportException.message,Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, exportException.message, Toast.LENGTH_SHORT).show()
     }
     
     private fun launchNewVideoPicker() {
@@ -245,7 +250,7 @@ class EffectsActivity : AppCompatActivity(),Transformer.Listener {
         
         val mediaItem = videoUrl?.let { MediaItem.fromUri(it) }
         
-        if(mediaItem!=null){
+        if (mediaItem != null) {
             inputPlayer?.setMediaItem(mediaItem)
         }
         inputPlayer?.seekTo(playbackPosition)
