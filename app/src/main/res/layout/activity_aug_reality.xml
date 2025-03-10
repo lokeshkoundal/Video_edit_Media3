@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.AugRealityActivity">
 
-    <io.github.sceneview.ar.ArSceneView
+    <io.github.sceneview.ar.ARSceneView
         android:id="@+id/sceneView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

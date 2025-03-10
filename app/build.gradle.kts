@@ -61,13 +61,13 @@ dependencies {
 
 //    implementation(libs.sceneview)
     implementation (libs.core)
-//    implementation (libs.arsceneview)
+    implementation (libs.arsceneview)
 //    implementation (libs.arsceneview)
     
 //    implementation (libs.sceneform)
 //    implementation ('com.google.mlkit:barcode-scanning:17.2.0' ) // For QR Code
     implementation (libs.androidx.lifecycle.viewmodel.ktx)// ViewModel
     
-    implementation (libs.arsceneview.v0100)
+//    implementation (libs.arsceneview.v0100)
     
 }
