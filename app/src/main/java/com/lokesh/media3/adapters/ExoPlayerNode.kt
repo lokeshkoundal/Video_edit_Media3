@@ -17,9 +17,9 @@ import io.github.sceneview.node.PlaneNode
 open class ExoPlayerNode(
     private val videoMaterial: VideoMaterial,
     val exoPlayer: ExoPlayer,
-    size: Size = Plane.DEFAULT_SIZE,
+    size: Size,
     center: Position = Plane.DEFAULT_CENTER,
-    normal: Direction = Plane.DEFAULT_NORMAL,
+    normal: Direction = Direction(0.0f, 1.0f, 0.0f),
     rotateToNode: Boolean = false,
     builderApply: RenderableManager.Builder.() -> Unit = {},
 ) : PlaneNode(

@@ -1,9 +1,10 @@
 package com.lokesh.media3.activities
 
 import android.graphics.BitmapFactory
-import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
@@ -14,14 +15,13 @@ import io.github.sceneview.ar.ARSceneView
 import io.github.sceneview.ar.arcore.addAugmentedImage
 import io.github.sceneview.ar.arcore.getUpdatedAugmentedImages
 import io.github.sceneview.ar.node.AugmentedImageNode
-import io.github.sceneview.math.Position
-import io.github.sceneview.node.ModelNode
+import io.github.sceneview.math.Size
 
 class AugRealityActivity : AppCompatActivity() {
     private lateinit var sceneView: ARSceneView
 //    private lateinit var videoNode: VideoNode
-    private lateinit var mediaPlayer: MediaPlayer
-    val augmentedImageNodes = mutableListOf<AugmentedImageNode>()
+//    private lateinit var mediaPlayer: MediaPlayer
+    private val augmentedImageNodes = mutableListOf<AugmentedImageNode>()
     
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +54,6 @@ class AugRealityActivity : AppCompatActivity() {
 //
 //        // ✅ Add image node to AR Scene
 //        sceneView.addChild(imageNode)
-        
         augImage()
     }
     
@@ -76,71 +75,64 @@ class AugRealityActivity : AppCompatActivity() {
 //    }
     
     private fun augImage(){
-        sceneView =findViewById<ARSceneView>(R.id.sceneView).apply {
+        sceneView = findViewById<ARSceneView>(R.id.sceneView).apply {
             configureSession { session, config ->
                 config.addAugmentedImage(
                     session, "luffy",
                     assets.open("luffy2.jpg")
                         .use(BitmapFactory::decodeStream)
+                    , widthInMeters = 0.2f
                 )
+                
                 config.addAugmentedImage(
                     session, "copy",
-                    assets.open("copy.png")
-                        .use(BitmapFactory::decodeStream)
+                    assets.open("copy.jpg")
+                        .use(BitmapFactory::decodeStream),
+                    widthInMeters = 0.2f
                 )
             }
+            onSessionFailed = {e->
+                Toast.makeText(this@AugRealityActivity,e.toString(),Toast.LENGTH_SHORT).show()
+            }
+           
             onSessionUpdated = { session, frame ->
                 frame.getUpdatedAugmentedImages().forEach { augmentedImage ->
                     if (augmentedImageNodes.none { it.imageName == augmentedImage.name }) {
                         val augmentedImageNode = AugmentedImageNode(engine, augmentedImage).apply {
                             when (augmentedImage.name) {
-                                "luffy" -> addChildNode(
-                                    ModelNode(
-                                        modelInstance = modelLoader.createModelInstance(
-                                            assetFileLocation = "models/sofa.glb"
-                                        ),
-                                        scaleToUnits = 0.1f,
-                                        centerOrigin = Position(0.0f)
-                                    )
-                                )
+//                                "luffy" -> addChildNode(
+//                                    ModelNode(
+//                                        modelInstance = modelLoader.createModelInstance(
+//                                            assetFileLocation = "models/sofa.glb"
+//                                        ),
+//                                        scaleToUnits = 0.1f,
+//                                        centerOrigin = Position(0.0f)
+//                                    )
+//                                )
 
                                 "copy" -> {
-                                 addChildNode(
+                                    val width = maxOf(augmentedImage.extentX, 0.1f) // Prevents zero width
+                                    val height = maxOf(augmentedImage.extentZ, 0.1f) // Prevents zero height
+                                    Log.d("AR_DEBUG", "Detected Image - Size: width=$width, height=$height")
+                                    
+                                    addChildNode(
                                         ExoPlayerNode(
                                             engine = engine,
                                             materialLoader = materialLoader,
-//                                            size = Size(x = augmentedImage.extentX, y = augmentedImage.extentZ), // When the width of the image is set
+                                            size = Size(x = width, y = 0.0f , z =  height), // When the width of the image is set
                                             exoPlayer = ExoPlayer.Builder(this@AugRealityActivity).build()
                                                 .apply {
                                                     setMediaItem(
                                                         MediaItem.fromUri(
-                                                        Uri.parse("android.resource://com.lokesh.media3/${R.raw.ad}")
+                                                        Uri.parse("android.resource://$packageName/raw/copy_vid")
                                                     ))
                                                     prepare()
                                                     playWhenReady = true
                                                     repeatMode = Player.REPEAT_MODE_ALL
                                                 },
-//                                            chromaKeyColor = if (chromaKey) 0x2fff19 else null, // 0x2fff19 is colorOf(0.1843f, 1.0f, 0.098f)
                                         )
                                     )}
 
-//                                ).also { qrCodeNode ->
-//                                    onTrackingStateChanged = { trackingState ->
-//                                        when (trackingState) {
-//                                            TrackingState.TRACKING -> {
-//                                                if (!qrCodeNode.player.isPlaying) {
-//                                                    qrCodeNode.player.start()
-//                                                }
-//                                            }
-//
-//                                            else -> {
-//                                                if (qrCodeNode.player.isPlaying) {
-//                                                    qrCodeNode.player.pause()
-//                                                }
-//                                            }
-//                                        }
-//                                    }
-//                                })
                             }
                         }
                         addChildNode(augmentedImageNode)
@@ -151,13 +143,4 @@ class AugRealityActivity : AppCompatActivity() {
         }
     }
     
-    override fun onPause() {
-        super.onPause()
-        mediaPlayer.pause()
-    }
-    
-    override fun onDestroy() {
-        super.onDestroy()
-        mediaPlayer.release()
-    }
 }
