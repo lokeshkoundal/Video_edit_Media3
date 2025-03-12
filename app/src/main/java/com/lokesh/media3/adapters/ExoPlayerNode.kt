@@ -19,7 +19,7 @@ open class ExoPlayerNode(
     val exoPlayer: ExoPlayer,
     size: Size,
     center: Position = Plane.DEFAULT_CENTER,
-    normal: Direction = Direction(0.0f, 1.0f, 0.0f),
+    normal: Direction = Plane.DEFAULT_NORMAL,
     rotateToNode: Boolean = false,
     builderApply: RenderableManager.Builder.() -> Unit = {},
 ) : PlaneNode(
