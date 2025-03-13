@@ -4,6 +4,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.common.MediaItem
@@ -20,14 +21,31 @@ import io.github.sceneview.math.Size
 class AugRealityActivity : AppCompatActivity() {
     private lateinit var sceneView: ARSceneView
     private val augmentedImageNodes = mutableListOf<AugmentedImageNode>()
+    private lateinit var exoPlayer: ExoPlayer  // Store reference to ExoPlayer
+    
     
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_aug_reality)
         
+        findViewById<ImageButton>(R.id.videoRestartBtn).setOnClickListener {
+            if (::exoPlayer.isInitialized) {
+                exoPlayer.seekTo(0)  // Seek to the beginning
+                exoPlayer.playWhenReady = true  // Ensure playback starts
+            }
+        }
+        
+        
         sceneView = findViewById<ARSceneView>(R.id.sceneView).apply {
             planeRenderer.isVisible = false
+            
+            exoPlayer = ExoPlayer.Builder(this@AugRealityActivity).build().apply {
+                setMediaItem(MediaItem.fromUri(Uri.parse("android.resource://$packageName/raw/copy_vid")))
+                prepare()
+                playWhenReady = true
+                repeatMode = Player.REPEAT_MODE_ALL
+            }
             
             configureSession { session, config ->
                 
@@ -62,14 +80,7 @@ class AugRealityActivity : AppCompatActivity() {
                                 engine = engine,
                                 materialLoader = materialLoader,
                                 size = Size(x = width, y = 0.0f, z = height), // Setting the width of the image
-                                exoPlayer = ExoPlayer.Builder(this@AugRealityActivity).build().apply {
-                                    setMediaItem(
-                                        MediaItem.fromUri(Uri.parse("android.resource://$packageName/raw/copy_vid"))
-                                    )
-                                    prepare()
-                                    playWhenReady = true
-                                    repeatMode = Player.REPEAT_MODE_ALL
-                                }
+                                exoPlayer = exoPlayer
                             )
                         
                         //rotated to match portrait copy
@@ -84,5 +95,17 @@ class AugRealityActivity : AppCompatActivity() {
             
         }
         
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        exoPlayer.stop()
+        exoPlayer.release()
+    }
+    
+    override fun onStop() {
+        super.onStop()
+        exoPlayer.stop()
+        exoPlayer.release()
     }
 }

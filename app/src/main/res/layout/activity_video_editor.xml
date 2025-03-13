@@ -210,24 +210,34 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="10dp"
-            android:overScrollMode="ifContentScrolls"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="4dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="40dp"
-            android:background="#EF2121"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <com.lokesh.media3.view.VideoTimelineView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginHorizontal="8dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--           app:layout_constraintTop_toTopOf="@+id/linearLayout2" />-->
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="4dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="40dp"
+                    android:background="#EF2121"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>

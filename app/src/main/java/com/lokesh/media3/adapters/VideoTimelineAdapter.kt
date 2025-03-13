@@ -3,8 +3,6 @@ package com.lokesh.media3.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lokesh.media3.R
 import com.lokesh.media3.model.VideoClip
@@ -36,26 +34,15 @@ class VideoTimelineAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is VideoViewHolder) {
-            holder.bind(videoClips[position])
-        } else if (holder is AddButtonViewHolder) {
             holder.itemView.setOnClickListener { onAddClick() }
-        }
+        
     }
 
     override fun getItemCount(): Int = videoClips.size
 
     class VideoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val thumbnailView: ImageView = view.findViewById(R.id.thumbnailView)
-        private val durationView: TextView = view.findViewById(R.id.durationView)
-
-        fun bind(videoClip: VideoClip) {
-            durationView.text = "${videoClip.duration / 1000}s"
-            // Set first frame as preview
-            if (videoClip.thumbnails.isNotEmpty()) {
-                thumbnailView.setImageBitmap(videoClip.thumbnails.first())
-            }
-        }
+    
+    
     }
 
     class AddButtonViewHolder(view: View) : RecyclerView.ViewHolder(view)

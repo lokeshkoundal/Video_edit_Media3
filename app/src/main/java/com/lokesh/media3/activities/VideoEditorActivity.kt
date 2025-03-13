@@ -28,40 +28,37 @@ class VideoEditorActivity : AppCompatActivity() {
     private var playbackPosition = 0L
     private var playWhenReady = true
     private var filePath: File? = null
-    private val videoClips = mutableListOf<VideoClip>()
     
+    private val videoClips = mutableListOf<VideoClip>()
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityVideoEditorBinding.inflate(layoutInflater)
         setContentView(binding.root)
         
-        val videoUri = Uri.parse("android.resource://$packageName/${R.raw.animation}")
+        val videoUri = Uri.parse("android.resource://$packageName/${R.raw.ad}")
         val duration = 10000L // 8 seconds (Replace with actual duration)
         val thumbnails = emptyList<Bitmap>()
         
         videoClips.add(VideoClip(videoUri, duration, thumbnails)) // Add static video
-        
+
         repeat(6){
             videoClips.add(VideoClip(videoUri, duration, thumbnails))
         }
-        
+
         val adapter = VideoTimelineAdapter(videoClips) {
             // Handle "+" button click (Add new video)
 //            openVideoPicker()
-            Toast.makeText(this, "Add video clicked!", Toast.LENGTH_SHORT).show()
-            
+//            Toast.makeText(this, "Add video clicked!", Toast.LENGTH_SHORT).show()
         }
-        
-        binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+//        binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerView.adapter = adapter
         
         binding.backBtn.setOnClickListener {
             finish()
         }
         
-        
-
     }
     
     fun extractThumbnails(videoUri: Uri, frameCount: Int = 5): List<Bitmap> {

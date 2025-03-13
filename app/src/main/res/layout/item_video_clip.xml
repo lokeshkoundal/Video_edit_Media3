@@ -4,40 +4,44 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/thumbnailView"
-            android:layout_width="130dp"
-            android:layout_height="80dp"
-            android:background="@drawable/bg_timeline"/>
+    <com.lokesh.media3.view.VideoTimelineView
+        android:layout_width="180dp"
+        android:layout_height="80dp"/>
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|end"
-            android:translationX="13.8dp"
-            android:background="@color/black"
-            android:src="@drawable/ic_add"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/thumbnailView"-->
+<!--            android:layout_width="130dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:background="@drawable/bg_timeline"/>-->
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|start"
-            android:translationX="-13.3dp"
-            android:background="@color/black"
-            android:src="@drawable/ic_add" />
+<!--        <ImageButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center|end"-->
+<!--            android:translationX="13.8dp"-->
+<!--            android:background="@color/black"-->
+<!--            android:src="@drawable/ic_add"/>-->
 
-        <TextView
-            android:id="@+id/durationView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0s"
-            android:paddingHorizontal="4dp"
-            android:background="#5F5E5E"
-            android:textColor="@color/white"
-            android:textSize="10sp"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="4dp"
-            android:layout_gravity="bottom|start"
-            android:gravity="center"/>
+<!--        <ImageButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center|start"-->
+<!--            android:translationX="-13.3dp"-->
+<!--            android:background="@color/black"-->
+<!--            android:src="@drawable/ic_add" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/durationView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="0s"-->
+<!--            android:paddingHorizontal="4dp"-->
+<!--            android:background="#5F5E5E"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="10sp"-->
+<!--            android:layout_marginStart="15dp"-->
+<!--            android:layout_marginBottom="4dp"-->
+<!--            android:layout_gravity="bottom|start"-->
+<!--            android:gravity="center"/>-->
 
     </FrameLayout>
