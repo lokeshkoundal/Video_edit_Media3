@@ -11,14 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-<!--    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="start video"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:layout_marginBottom="100dp"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
 
     <ImageButton
         android:id="@+id/videoRestartBtn"
@@ -26,6 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/restart_video"
         android:padding="2dp"
         android:src="@drawable/ic_restart"
         app:layout_constraintBottom_toBottomOf="parent"

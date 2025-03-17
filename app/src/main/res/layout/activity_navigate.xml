@@ -7,15 +7,22 @@
     android:layout_height="match_parent"
     tools:context=".activities.NavigateActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:padding="20dp">
 
 
         <Button
@@ -136,8 +143,21 @@
             app:layout_constraintTop_toBottomOf="@+id/videoEditorBtn"/>
 
 
+        <Button
+            android:id="@+id/customViewsBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_layout"
+            android:text="Custom Views"
+            app:layout_constraintTop_toBottomOf="@+id/augRealityBtn"/>
+
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

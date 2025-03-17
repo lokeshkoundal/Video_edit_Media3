@@ -28,6 +28,8 @@ class NavigateActivity : AppCompatActivity(),OnClickListener {
         binding.voiceOverBtn.setOnClickListener(this)
         binding.videoEditorBtn.setOnClickListener(this)
         binding.augRealityBtn.setOnClickListener(this)
+        binding.customViewsBtn.setOnClickListener(this)
+        
 
     }
 
@@ -84,6 +86,11 @@ class NavigateActivity : AppCompatActivity(),OnClickListener {
             
             binding.augRealityBtn.id -> {
                 val intent = Intent(this, AugRealityActivity::class.java)
+                startActivity(intent)
+            }
+            
+            binding.customViewsBtn.id -> {
+                val intent = Intent(this, CustomViewsActivity::class.java)
                 startActivity(intent)
             }
             

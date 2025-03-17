@@ -54,4 +54,5 @@
     <string name="tc">TC</string>
     <string name="tl">TL</string>
     <string name="select_position">Select position</string>
+    <string name="restart_video">Restart video</string>
 </resources>

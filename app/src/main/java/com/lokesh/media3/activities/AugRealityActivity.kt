@@ -73,7 +73,6 @@ class AugRealityActivity : AppCompatActivity() {
                         width = height
                         height = temp
                     }
-                    
                     val augmentedImageNode = AugmentedImageNode(engine, augmentedImage).apply {
                         
                         val videoNode = ExoPlayerNode(

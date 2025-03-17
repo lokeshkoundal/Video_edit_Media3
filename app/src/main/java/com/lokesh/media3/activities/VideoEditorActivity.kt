@@ -4,12 +4,10 @@ import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.transformer.Transformer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.lokesh.media3.R
 import com.lokesh.media3.adapters.VideoTimelineAdapter
 import com.lokesh.media3.databinding.ActivityVideoEditorBinding
