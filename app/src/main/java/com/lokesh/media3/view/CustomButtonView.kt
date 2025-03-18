@@ -10,6 +10,15 @@ import android.view.View
 
 private const val SQUARE_SIZE = 300
 
+/**
+@JvmOverloads is an annotation in Kotlin that helps generate multiple overloaded constructors
+or methods when using Kotlin code in Java.
+ 
+ *@param context The context in which the view is created.
+ * @param attributeSet Set of attributes defined in XML.
+ * @param defStyleAttr Default style attributes.
+ *@author Lokesh koundal
+ */
 class CustomButtonView @JvmOverloads constructor (
     context: Context,
     attributeSet: AttributeSet? = null,
@@ -27,8 +36,9 @@ class CustomButtonView @JvmOverloads constructor (
     }
     
     private fun initView() {
-    
+        paint.color = Color.GREEN
     }
+    
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         
@@ -37,8 +47,13 @@ class CustomButtonView @JvmOverloads constructor (
         rect.right = rect.left + SQUARE_SIZE
         rect.bottom = rect.top + SQUARE_SIZE
         
-        paint.color = Color.GREEN
         canvas.drawRect(rect,paint)
+    }
+    
+    fun swapColor(){
+        paint.color = if(paint.color == Color.GREEN) Color.RED else Color.GREEN
+        postInvalidate()
+
     }
     
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

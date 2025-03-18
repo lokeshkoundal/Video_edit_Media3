@@ -36,7 +36,6 @@ class AugRealityActivity : AppCompatActivity() {
             }
         }
         
-        
         sceneView = findViewById<ARSceneView>(R.id.sceneView).apply {
             planeRenderer.isVisible = false
             
