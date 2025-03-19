@@ -11,12 +11,13 @@ import android.view.View
 private const val SQUARE_SIZE = 300
 
 /**
-@JvmOverloads is an annotation in Kotlin that helps generate multiple overloaded constructors
-or methods when using Kotlin code in Java.
+ * It is a view that draws a green square on the screen, has a function to swap the color.
+ * `@JvmOverloads` is an annotation in Kotlin that helps generate multiple overloaded constructors
+ * or methods when using Kotlin code in Java.
  
  *@param context The context in which the view is created.
- * @param attributeSet Set of attributes defined in XML.
- * @param defStyleAttr Default style attributes.
+ *@param attributeSet Set of attributes defined in XML.
+ *@param defStyleAttr Default style attributes.
  *@author Lokesh koundal
  */
 class CustomButtonView @JvmOverloads constructor (
@@ -53,7 +54,6 @@ class CustomButtonView @JvmOverloads constructor (
     fun swapColor(){
         paint.color = if(paint.color == Color.GREEN) Color.RED else Color.GREEN
         postInvalidate()
-
     }
     
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -62,6 +62,4 @@ class CustomButtonView @JvmOverloads constructor (
         val height = resolveSize(desiredSize, heightMeasureSpec)
         setMeasuredDimension(width, height)
     }
-    
-    
 }

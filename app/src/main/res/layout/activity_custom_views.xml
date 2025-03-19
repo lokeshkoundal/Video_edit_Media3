@@ -11,7 +11,7 @@
     <com.lokesh.media3.view.CustomButtonView
         android:id="@+id/customButtonView"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,8 +28,26 @@
         app:layout_constraintTop_toBottomOf="@+id/customButtonView" />
 
     <com.lokesh.media3.view.MyCanvas
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/myCanvas"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/swapBtn" />
+
+
+    <com.lokesh.media3.view.CustomImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/custombtn"
+        android:focusable="true"
+        app:imageSrc="@drawable/copy"
+        app:text="This is Button text"
+        app:textSize="18sp"
+        android:clickable="true"
+        app:textColor="@android:color/holo_blue_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myCanvas" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

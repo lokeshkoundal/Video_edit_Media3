@@ -14,6 +14,25 @@ import io.github.sceneview.math.Position
 import io.github.sceneview.math.Size
 import io.github.sceneview.node.PlaneNode
 
+/**
+ * A [PlaneNode] that displays a video from an [ExoPlayer] instance.
+ *
+ * This node uses an [ExoPlayer] to manage video playback and a [VideoMaterial] to render
+ * the video onto a plane surface.
+ *
+ * The video will automatically play when the node becomes visible and pause when it becomes
+ * invisible.
+ *
+ * @param videoMaterial The [VideoMaterial] used to render the video.
+ * @param exoPlayer The [ExoPlayer] instance that manages video playback.
+ * @param size The size of the plane. If [Plane.DEFAULT_SIZE] and the video has loaded, the plane's size will automatically change to match the video's aspect ratio.
+ * @param center The center position of the plane.
+ * @param normal The normal direction of the plane.
+ * @param rotateToNode If true, the plane will be rotated to face the node and the size & center will change accordingly.
+ *     - x will become z for the size
+ *     - y will become z for the center
+ * @param builderApply A lambda to apply additional configurations to the underlying [RenderableManager.Builder].
+ */
 open class ExoPlayerNode(
     private val videoMaterial: VideoMaterial,
     val exoPlayer: ExoPlayer,

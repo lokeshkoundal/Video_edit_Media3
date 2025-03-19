@@ -11,6 +11,22 @@ import io.github.sceneview.safeDestroyStream
 import io.github.sceneview.safeDestroyTexture
 import io.github.sceneview.texture.VideoTexture
 
+/**
+ * `VideoMaterial` handles the creation and management of resources needed to render video
+ * content onto a Filament scene. It uses a `SurfaceTexture` and `Surface` to receive
+ * video frames, a `Stream` to connect the video source to Filament, and a `VideoTexture`
+ * to sample the stream within a Filament material.
+ *
+ * This class provides a convenient way to:
+ *  - Create and manage the necessary Android and Filament objects for video rendering.
+ *  - Apply a chroma key (if needed) to the video material.
+ *  - Handle resource cleanup to prevent memory leaks.
+ *
+ * @param engine The Filament `Engine` instance.
+ * @param materialLoader The `MaterialLoader` responsible for creating the video material instance.
+ * @param chromaKeyColor Optional. An integer representing the chroma key color to be applied to the video.
+ *                         If null, no chroma key effect will be applied.
+ */
 class VideoMaterial(
     val engine: Engine,
     materialLoader: MaterialLoader,

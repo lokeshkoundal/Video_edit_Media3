@@ -10,7 +10,6 @@ import kotlin.math.min
 
 class VideoTimelineView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     
-    
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val handlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.WHITE }
     private val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.YELLOW; alpha = 150 }
@@ -21,9 +20,10 @@ class VideoTimelineView(context: Context, attrs: AttributeSet?) : View(context, 
     private var draggingStart = false
     private var draggingEnd = false
     
+   
+    
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        
         
         val timelineHeight = height.toFloat()
         val centerY = height / 2f
