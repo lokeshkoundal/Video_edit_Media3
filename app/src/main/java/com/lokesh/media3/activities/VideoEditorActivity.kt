@@ -1,5 +1,6 @@
 package com.lokesh.media3.activities
 
+import com.lokesh.media3.adapters.VideoTimelineAdapter
 import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
 import android.net.Uri
@@ -9,9 +10,8 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.transformer.Transformer
 import com.lokesh.media3.R
-import com.lokesh.media3.adapters.VideoTimelineAdapter
 import com.lokesh.media3.databinding.ActivityVideoEditorBinding
-import com.lokesh.media3.model.VideoClip
+import com.lokesh.media3.model.VideoClip2
 import java.io.File
 
 @UnstableApi
@@ -27,7 +27,7 @@ class VideoEditorActivity : AppCompatActivity() {
     private var playWhenReady = true
     private var filePath: File? = null
     
-    private val videoClips = mutableListOf<VideoClip>()
+    private val videoClips = mutableListOf<VideoClip2>()
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,17 +38,12 @@ class VideoEditorActivity : AppCompatActivity() {
         val duration = 10000L // 8 seconds (Replace with actual duration)
         val thumbnails = emptyList<Bitmap>()
         
-        videoClips.add(VideoClip(videoUri, duration, thumbnails)) // Add static video
 
         repeat(6){
-            videoClips.add(VideoClip(videoUri, duration, thumbnails))
+            videoClips.add(VideoClip2(100f,400f))
         }
 
-        val adapter = VideoTimelineAdapter(videoClips) {
-            // Handle "+" button click (Add new video)
-//            openVideoPicker()
-//            Toast.makeText(this, "Add video clicked!", Toast.LENGTH_SHORT).show()
-        }
+        val adapter = VideoTimelineAdapter(videoClips)
 
 //        binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerView.adapter = adapter

@@ -5,22 +5,25 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import com.lokesh.media3.model.OnTrimChangeListener
+import com.lokesh.media3.model.VideoClip2
 import kotlin.math.max
 import kotlin.math.min
 
 class VideoTimelineView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     
+    var listener: OnTrimChangeListener? = null
+    var position: Int = -1  // Position in RecyclerView
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val handlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.WHITE }
     private val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.YELLOW; alpha = 150 }
+    
     private val handleWidth = 40f
     private val minTrimWidth = 100f
     private var startX = 100f
     private var endX = 600f
     private var draggingStart = false
     private var draggingEnd = false
-    
-   
     
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -61,9 +64,12 @@ class VideoTimelineView(context: Context, attrs: AttributeSet?) : View(context, 
                 } else if (draggingEnd) {
                     endX = max(startX + minTrimWidth, min(event.x, width.toFloat()))
                 }
+                
+                // Notify RecyclerView adapter
+                listener?.onTrimChanged(position, startX, endX)
+                
                 invalidate()
             }
-            
             
             MotionEvent.ACTION_UP -> {
                 draggingStart = false
@@ -72,5 +78,13 @@ class VideoTimelineView(context: Context, attrs: AttributeSet?) : View(context, 
             }
         }
         return true
+    }
+    
+    fun setTrimData(clip: VideoClip2, position: Int, listener: OnTrimChangeListener) {
+        this.startX = clip.startX
+        this.endX = clip.endX
+        this.position = position
+        this.listener = listener
+        invalidate()
     }
 }

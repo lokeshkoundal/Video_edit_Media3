@@ -1,4 +1,4 @@
-package com.lokesh.media3.adapters
+package com.lokesh.media3.ar
 
 import androidx.annotation.OptIn
 import androidx.media3.common.Player

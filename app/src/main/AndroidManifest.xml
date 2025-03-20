@@ -32,7 +32,7 @@
             android:name=".activities.CustomViewsActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.AugRealityActivity"
+            android:name=".ar.AugRealityActivity"
             android:exported="false" />
 
         <meta-data

@@ -1,4 +1,4 @@
-package com.lokesh.media3.adapters
+package com.lokesh.media3.ar
 
 import android.graphics.SurfaceTexture
 import android.view.Surface

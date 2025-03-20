@@ -1,4 +1,4 @@
-package com.lokesh.media3.activities
+package com.lokesh.media3.ar
 
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -11,7 +11,6 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import com.lokesh.media3.R
-import com.lokesh.media3.adapters.ExoPlayerNode
 import io.github.sceneview.ar.ARSceneView
 import io.github.sceneview.ar.arcore.addAugmentedImage
 import io.github.sceneview.ar.arcore.getUpdatedAugmentedImages

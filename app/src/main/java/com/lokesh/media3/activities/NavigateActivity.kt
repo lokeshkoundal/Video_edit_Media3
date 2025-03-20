@@ -7,6 +7,7 @@ import android.view.View.OnClickListener
 import androidx.annotation.OptIn
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.common.util.UnstableApi
+import com.lokesh.media3.ar.AugRealityActivity
 import com.lokesh.media3.databinding.ActivityNavigateBinding
 
 class NavigateActivity : AppCompatActivity(),OnClickListener {
